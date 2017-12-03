@@ -1,0 +1,53 @@
+.dropzone {
+    border: 1px dashed;
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.active {
+    border-style: solid;
+}
+
+.progress {
+    width: 100%;
+}
+
+.progress-display {
+    position: absolute;
+    margin: 0;
+}
+
+#description {
+    height: 5.5rem;
+}
+
+.imageUpload {
+    display: none;
+}
+
+.tab-pane {
+    border-style: none;
+}
+
+.nav-link {
+    text-align: -webkit-center;
+    text-align: center;
+}
+
+.nav-item {
+    flex: 2;
+}
+
+.is-hovered {
+    color: #EB6864;
+    border: #EB6864;
+}
+
+.record-box {
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+}

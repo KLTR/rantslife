@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+a :hover {
+    cursor: pointer
+}
+
+
+/* Smartphones (portrait and landscape) ----------- */
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .form-control {
+        font-size: calc(16px + 0.5vw);
+    }
+}
+
+
+/* iPads (portrait and landscape) ----------- */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    /* STYLES GO HERE */
+}
+
+body,
+html {
+    overflow: hidden;
+}
+
+app-root {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    flex-direction: column;
+}

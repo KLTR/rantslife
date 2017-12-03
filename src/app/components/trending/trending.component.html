@@ -1,0 +1,38 @@
+<!-- Copyright 2017, Rant's Life, All rights reserved -->
+<!--  This code was written by Roy Levy -->
+
+
+<div (click)="toggleSidenav();" class="trending cover">
+    <h2>Trending</h2>
+    <div class="row main">
+        <div *ngFor='let podcast of trendingPodcasts' class="card col-lg-3 col-md-6 col-xs-12">
+            <div class="container">
+                <div class="info">
+                    <div class="column">
+                        <div class="demo-title">{{podcast.title}}</div>
+                        <div class="post-module" (mouseenter)='hoverCard(podcast.id)' (mouseleave)='hoverCard(podcast.id)'>
+                            <div class="thumbnail">
+
+                                <img [src]='podcast.image_file_url' />
+                            </div>
+                            <div class="post-content">
+                                <div class="category bg-danger">{{podcast.mainCategory}} Main Category</div>
+                                <h1 class="title">{{podcast.title}}</h1>
+                                <h2 class="sub_title">{{podcast.subtitle}} Subtitle</h2>
+                                <p [attr.id]="podcast.id" class="description">{{podcast.description}}
+                                    <audio controls>
+                                        <source src="{{podcast.audio_file_url}}" type="audio/ogg">
+                                    </audio>
+                                </p>
+
+                                <div class="post-meta"><span class="timestamp"><i class="fa fa-clock-o"></i> {{ podcast.date.toLocaleDateString()}}</span><span class="comments"><i class="fa fa-comments-o"></i><a href="#">{{podcast.comments?.length()}} comments</a></span>
+                                    <span><i class="fa fa-thumbs-o-up"></i>likes {{podcast.likes?.length()}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

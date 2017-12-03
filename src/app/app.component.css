@@ -1,0 +1,38 @@
+app-sidenav {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: absolute;
+}
+
+.app-container {
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.sidenav-overflow {
+    overflow: scroll;
+    width: 100vw;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 15;
+    visibility: hidden;
+}
+
+.show-overflow {
+    animation: show-overflow 0.4s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes show-overflow {
+    0% {
+        visibility: visible;
+        opacity: 0;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+    }
+}

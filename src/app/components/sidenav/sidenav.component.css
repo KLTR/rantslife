@@ -1,0 +1,36 @@
+.sidenav {
+    position: absolute;
+    z-index: 999;
+    opacity: 0.8;
+    width: 350px;
+    height: 100%;
+    left: -350px;
+    transition: 0.4s ease-out;
+    color: white;
+    box-shadow: -4px 0 8px rgba(250, 250, 250, 0.5);
+    display: flex;
+    flex-direction: column;
+    padding-top: 7rem;
+    align-items: center;
+}
+
+.activeSideBar {
+    left: 0;
+}
+
+.user-img {
+    height: 10rem;
+    width: 15rem;
+    flex: 1;
+}
+
+.user-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logout-btn {
+    position: absolute;
+    bottom: 2rem;
+}

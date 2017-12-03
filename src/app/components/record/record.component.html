@@ -1,0 +1,122 @@
+<!-- Copyright 2017, Rant's Life, All rights reserved -->
+<!--  This code was written by Roy Levy -->
+<div class="modal fade" id="myModal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Share Your Rants</h5>
+                <button (click)='clearAll()' type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body card card-outline-secondary">
+                <!-- Form -->
+                <div>
+                    <span class="anchor" id="formRegister"></span>
+                    <!-- form card register -->
+                    <form [formGroup]="rForm" (ngSubmit)="addPodcast(rForm.value)" class="form" role="form" autocomplete="on">
+                        <div class="form-group">
+                            <label for="inputName">Title</label>
+                            <input type="text" class="form-control" id="title" formControlName="title" placeholder="Happiness and how to Keep it">
+                            <div class="alert alert-dismissible alert-danger" *ngIf="!rForm.controls['title'].valid && rForm.controls['title'].touched">
+                                {{titleAlert}} (Min 4 characters)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="mb-0">Description</label>
+                            <div class="row mb-1">
+                                <div class="col-lg-12">
+                                    <textarea rows="6" formControlName="description" id="description" class="form-control" placeholder="In the next Podcast i'll be telling about what makes me happy and how do i maintain that happines ..."></textarea>
+                                </div>
+                            </div>
+                            <div class="alert alert-dismissible alert-danger" *ngIf="!rForm.controls['description'].valid && rForm.controls['description'].touched">
+                                {{titleAlert}} (Min 20 characters, Max 100)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="hastags" class="mb-0">Add Tags</label>
+                            <div class="row mb-1">
+                                <div class="col-lg-12">
+                                    <textarea rows="6" formControlName="tags" id="tags" class="form-control" placeholder="#cool #happy #smiling #summer"></textarea>
+                                </div>
+                            </div>
+                            <div class="alert alert-dismissible alert-danger" *ngIf="!rForm.controls['tags'].valid && rForm.controls['tags'].touched">
+                                {{titleAlert}}
+                            </div>
+                        </div>
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                                <a class="nav-link active" (click)="changeAudioFileActive(true)" data-toggle="tab" href="#audio">Upload Audio File <i class="fa fa-file-audio-o fa-2x"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" (click)="changeAudioFileActive(false)" data-toggle="tab" href="#image">Upload Image <i class="fa fa-file-image-o fa-2x"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" (click)="changeAudioFileActive(false)" data-toggle="tab" href="#record">Record  <i class="fa fa-microphone fa-2x"></i></a>
+                            </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade in active show" id="audio">
+                                <div class="progress audioUpload" *ngIf='currentAudioFile && currentAudioFile?.progress < 100'>
+                                    <div #progressbar class="progress-bar progress-bar-striped  progress-bar-animated" role="progressbar" [ngStyle]="{ 'width': currentAudioFile?.progress + '%' }">
+                                    </div>
+                                    <p class="progress-display"><b>Progress: {{currentAudioFile?.name}} | {{currentAudioFile?.progress}}% Complete</b></p>
+                                </div>
+                                <div *ngIf='currentAudioFile?.progress == 100' class="uploadComplete">
+                                    <h5>Audio was uploaded successfully</h5>
+                                </div>
+                                <div class="form-group">
+                                    <div [hidden]='currentAudioFile?.progress > 0' class="box">
+                                        <div class="dropzone" fileDrop (filesDropped)="handleDrop($event)" (filesHovered)="dropzoneState($event)" [ngClass]="{'border-primary active':dropzoneActive}">
+                                            <h5 [ngClass]="{'text-primary':dropzoneActive}">Drop Audio File Here</h5>
+                                            <i [ngClass]="{'text-primary':dropzoneActive}" class="fa fa-cloud-upload fa-2x"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade out" id="image">
+                                <div class="progress" *ngIf='currentImageFile && currentImageFile?.progress < 100'>
+                                    <div #progressbarImage class="progress-bar progress-bar-striped  progress-bar-animated" role="progressbar" [ngStyle]="{ 'width': currentImageFile?.progress + '%' }">
+                                    </div>
+                                    <p class="progress-display"><b>Progress: {{currentImageFile?.name}} | {{currentImageFile?.progress}}% Complete</b></p>
+                                </div>
+                                <div *ngIf='currentImageFile?.progress == 100' class="uploadComplete">
+                                    <h5>Image was uploaded successfully</h5>
+                                </div>
+                                <div class="form-group">
+                                    <div *ngIf='!currentImageFile' class="box">
+                                        <div class="dropzone" fileDrop (filesDropped)="handleDrop($event)" (filesHovered)="dropzoneState($event)" [ngClass]="{'border-primary active':dropzoneActive}">
+                                            <h5 [ngClass]="{'text-primary':dropzoneActive}">Drop Image File Here</h5>
+                                            <i [ngClass]="{'text-primary':dropzoneActive}" class="fa fa-cloud-upload fa-2x"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade out" id="record">
+                                <div class="box">
+                                    <div class="record-box">
+                                        <app-live-record></app-live-record>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Audio File Upload -->
+
+                        <!-- Image File Upload -->
+
+                        <div class="form-group">
+                            <!-- <button type="submit" class="btn btn-success btn-lg float-right">Register</button> -->
+                        </div>
+                        <div class="modal-footer">
+                            <input (click)='clearAll()' type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel" />
+                            <!-- <input type="submit" class="btn btn-primary" value="Share Your Rant" [disabled]="!rForm.valid || currentAudioFile?.progress < 100" /> -->
+                            <input type="button" class="btn btn-primary" (click)='addPodcast(rForm.value)' data-dismiss='modal' value="Share Your Rant" [disabled]="!rForm.valid || currentAudioFile?.progress < 100" />
+                        </div>
+                    </form>
+                    <!-- /Form -->
+                </div>
+
+            </div>
+        </div>
+    </div>

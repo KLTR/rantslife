@@ -1,0 +1,24 @@
+<div [ngClass]="{'activeSideBar' : isSideNavOpen}" id="sidenav" class="sidenav bg-primary">
+    <div *ngIf="auth.user | async; then authenticated else guest">
+        <!-- template will replace this div -->
+    </div>
+
+    <ng-template #guest>
+        <h3>Howdy, GUEST</h3>
+        <p>Login to get started ...</p>
+
+        <button (click)="auth.googleLogin()">
+        <i class="fa fa-google" aria-hidden="true">Connect Google</i>
+      </button>
+
+    </ng-template>
+
+    <ng-template #authenticated>
+        <div class='user-layout' *ngIf="auth.user | async as user">
+            <h3 class="text-white">Howdy, {{user.displayName}}</h3>
+            <img class='user-img rounded' [src]="user.photoURL">
+
+            <button class="btn btn-secondary logout-btn" (click)="auth.signOut()">Logout</button>
+        </div>
+    </ng-template>
+</div>
