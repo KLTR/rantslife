@@ -2,9 +2,13 @@ import { Component, OnInit, ViewChild,ElementRef, Output,EventEmitter } from '@a
 import {Observable} from 'rxjs/Rx';
 import {DOCUMENT} from "@angular/common";
 import {FirebaseService} from '../../services/firebase.service';
+import {AuthService} from '../../services/auth.service';
 import  {Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map'
 import * as firebase from 'firebase/app';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+import {Podcast} from '../../models/podcast';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -16,27 +20,33 @@ export class NavbarComponent implements OnInit {
   @ViewChild('') div: ElementRef;
   
 
-  searchTerm: string = '';
+  podcasts;
+  allPodcasts;
+  timeInterval;
+
+  searchterm: string;
   startAt = new Subject();
   endAt = new Subject();
+  isUser = false;
 
-  podcasts;
-  timeInterval;
   startObserve = this.startAt.asObservable();
   endObserve = this.endAt.asObservable();
 
-
+  lastKeypress: number = 0;
 
   //! Constructor
   constructor(
-    private firebaseService: FirebaseService) { }
+    private firebaseService: FirebaseService,
+    private authService: AuthService) {
+     }
 
 
 
 
   //! Functions
   ngOnInit() {
-    Observable.combineLatest(this.startObserve, this.endObserve).subscribe((value) => {
+
+   Observable.combineLatest(this.startObserve, this.endObserve).subscribe((value) => {
       this.firebaseService.search(value[0], value[1]).subscribe((podcasts) =>{
         this.podcasts = podcasts;
       })
@@ -44,24 +54,20 @@ export class NavbarComponent implements OnInit {
   }
 
  search($event){
-   if(this.searchTerm == ''){
-     return;
-   }
-   console.log((this.timeInterval))
-  if(this.timeInterval){
-    clearTimeout(this.timeInterval)
-  }
-
-    this.timeInterval = setTimeout(()=>{
+   if($event.timeStamp - this.lastKeypress > 200){
     let q = $event.target.value
-    this.startAt.next(q);
-    this.endAt.next(q + '\uf8ff');
-   },1000)
-
+    if (q != '') {
+      this.startAt.next(q);
+      this.endAt.next(q + "\uf8ff");
+    }
+    else {
+      this.podcasts = this.allPodcasts;
+    }
+   }
+   this.lastKeypress = $event.timeStamp;
  }
 
  toggleSideNav($event){
-   console.log('toggleSideNav navbar');
   this.updateSideNav.emit($event);
  }
 }

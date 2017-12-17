@@ -1,0 +1,183 @@
+<div class="container-fluid cd-main-content custom-container">
+    <div class="row">
+        <div class="col-md-2 left-feild">
+            <form action="./" class="input-search" _lpchecked="1">
+                <input type="text" required="" placeholder="Enter keyword">
+                <i id="search-icon" class="fas fa-search"></i>
+                <input type="submit" value="">
+            </form>
+        </div>
+        <div class="col-md-10 ">
+            <div class="for-be-dropdowns">
+                <div (click)="toggleDropDown()" class="be-drop-down">
+                    <i class="fab fa-accusoft icon"></i>
+                    <span class="be-dropdown-content"> Projects	</span>
+                    <ul class="drop-down-list" [ngClass]="isShown ? 'active-list' : 'not-active-list'">
+                        <li class="filter" data-filter=".category-1"><a data-type="category-1">Projects</a></li>
+                        <li class="filter" data-filter=".category-2"><a data-type="category-2">Work in Progress</a></li>
+                        <li class="filter" data-filter=".category-3"><a data-type="category-3">People</a></li>
+                    </ul>
+                </div>
+                <div class="be-drop-down">
+                    <i class="icon-creative"></i>
+                    <span class="be-dropdown-content">All Creative Filds
+            </span>
+                    <ul class="drop-down-list" style="display: none;">
+                        <li class="filter" data-filter=".category-4"><a>Item - 1</a></li>
+                        <li class="filter" data-filter=".category-5"><a>Item - 2</a></li>
+                        <li class="filter" data-filter=".category-1"><a>Item - 3</a></li>
+                    </ul>
+                </div>
+                <div class="be-drop-down">
+                    <i class="icon-features"></i>
+                    <span class="be-dropdown-content">Features
+            </span>
+                    <ul class="drop-down-list" style="display: none;">
+                        <li class="filter" data-filter=".category-2"><a>Featured</a></li>
+                        <li class="filter" data-filter=".category-3"><a>Most Appreciated</a></li>
+                        <li class="filter" data-filter=".category-4"><a>Most Viewed</a></li>
+                        <li class="filter" data-filter=".category-5"><a>Most Discussed</a></li>
+                        <li class="filter" data-filter=".category-1"><a>Most Recent</a></li>
+                    </ul>
+                </div>
+                <div class="be-drop-down">
+                    <i class="icon-worldwide"></i>
+                    <span class="be-dropdown-content">Worldwide
+            </span>
+                    <ul class="drop-down-list" style="display: none;">
+                        <li class="filter" data-filter=".category-2"><a>WorldWide</a></li>
+                        <li class="filter" data-filter=".category-3"><a>United States</a></li>
+                        <li class="filter" data-filter=".category-4"><a>Germany</a></li>
+                        <li class="filter" data-filter=".category-5"><a>United Kingdom</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid custom-container">
+    <div class="row">
+
+        <div class="col-md-2 left-feild">
+            <div class="be-vidget">
+                <h3 class="letf-menu-article">
+                    Popular Categories
+                </h3>
+                <div class="creative_filds_block">
+                    <div class="ul">
+                        <a data-filter=".category-1" class="filter">Graphic Design		</a>
+                        <a data-filter=".category-2" class="filter">Photography			</a>
+                        <a data-filter=".category-3" class="filter">Interaction Design	</a>
+                        <a data-filter=".category-4" class="filter">Art Direction		</a>
+                        <a data-filter=".category-5" class="filter">Illustration		</a>
+                    </div>
+                </div>
+            </div>
+            <div class="be-vidget">
+                <h3 class="letf-menu-article">
+                    Popular Tags
+                </h3>
+                <div class="tags_block clearfix">
+                    <ul>
+                        <li><a data-filter=".category-6" class="filter">photoshop</a></li>
+                        <li><a data-filter=".category-1" class="filter">graphic</a></li>
+                        <li><a data-filter=".category-2" class="filter">art</a></li>
+                        <li><a data-filter=".category-3" class="filter">website</a></li>
+                        <li><a data-filter=".category-4" class="filter">logo</a></li>
+                        <li><a data-filter=".category-5" class="filter">identity</a></li>
+                        <li><a data-filter=".category-6" class="filter">logo design</a></li>
+                        <li><a data-filter=".category-1" class="filter">interactive</a></li>
+                        <li><a data-filter=".category-2" class="filter">blue</a></li>
+                        <li><a data-filter=".category-3" class="filter">branding</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="be-vidget">
+                <h3 class="letf-menu-article">
+                    Filter By
+                </h3>
+                <div class="filter-block">
+                    <ul>
+                        <li class=""><a><i class="fa fa-graduation-cap"></i>Schools</a>
+                            <div class="be-popup" style="display: none;">
+                                <h3 class="letf-menu-article">
+                                    Enter School
+                                </h3>
+                                <form action="./" class="input-search" _lpchecked="1">
+                                    <input class="filters-input ui-autocomplete-input" type="text" required="" placeholder="Start typing to see list" autocomplete="off">
+                                </form>
+                                <i class="fa fa-times"></i>
+                            </div>
+                        </li>
+                        <li><a><i class="fa fa-wrench"></i>Tools Used</a>
+                            <div class="be-popup">
+                                <h3 class="letf-menu-article">
+                                    Tools
+                                </h3>
+                                <form action="./" class="input-search">
+                                    <input class="filters-input ui-autocomplete-input" type="text" required="" placeholder="Start typing to see list" autocomplete="off">
+                                </form>
+                                <i class="fa fa-times"></i>
+                            </div>
+                        </li>
+                        <li><a><i class="fa fa-paint-brush"></i>Color</a>
+                            <div class="be-popup be-color-picker">
+                                <h3 class="letf-menu-article">
+                                    Choose color
+                                </h3>
+                                <div class="for-colors">
+                                    <ul class="colors  cfix">
+                                    </ul>
+                                </div>
+                                <i class="fa fa-times"></i>
+
+                            </div>
+                        </li>
+                        <li><a><i class="fa fa-camera-retro"></i>Visit Gallery</a>
+                            <div class="be-popup">
+                                <h3 class="letf-menu-article">
+                                    Galerry
+                                </h3>
+                                <form action="./" class="input-search">
+                                    <input class="filters-input ui-autocomplete-input" type="text" required="" placeholder="Start typing to see list" autocomplete="off">
+                                </form>
+                                <i class="fa fa-times"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <div id="container-mix" class="row _post-container_">
+                <div *ngFor="let podcast of podcasts" class="col-sm-6 col-md-4 col-xl-2" style="display: inline-block;">
+                    <div class="be-post">
+                        <a href="page1.html" class="be-img-block">
+                            <audio controls="">
+                                <source  type="audio/ogg" [src]="podcast.audio_file_url">
+                              </audio>
+                            <img [src]="podcast.image_file_url" alt="omg">
+                        </a>
+
+                        <a href="page1.html" class="be-post-title">{{podcast.title}}</a>
+                        <span>
+                <a *ngFor="let tags of podcast.tag" href="blog-detail-2.html" class="be-post-tag">Interaction Design</a>, 
+                <a href="blog-detail-2.html" class="be-post-tag">UI/UX</a>,  
+                <a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
+              </span>
+                        <div class="author-post">
+                            <!-- <img src="img/a1.png" alt="" class="ava-author"> -->
+                            <span>by <a href="page1.html">{{podcast.creator}}</a></span>
+                        </div>
+                        <div class="info-block">
+                            <span><i class="far fa-heart"></i> {{podcast.likes?.length}}</span>
+                            <span><i class="fas fa-headphones"></i>{{podcast.listeners?.length}}</span>
+                            <span><i class="far fa-comment"></i>{{podcast.comments?.length}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

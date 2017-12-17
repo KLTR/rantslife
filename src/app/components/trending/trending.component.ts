@@ -20,10 +20,8 @@ export class TrendingComponent implements OnInit {
   ngOnInit() {
     this.firebaseService.getPodcasts().subscribe(podcasts => {
       this.trendingPodcasts = podcasts;
-      // console.log(podcasts);
-      let date = new Date()
       console.log(podcasts);
-
+      let date = new Date()
     });
   }
 hoverCard(id){

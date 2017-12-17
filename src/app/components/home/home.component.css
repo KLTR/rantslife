@@ -1,11 +1,40 @@
 h2 {}
 
 .jumbotron {
+    text-align: center;
     display: flex;
     flex-direction: column;
-    height: 40rem;
+    height: 30rem;
     justify-content: center;
-    background-image: url('../../../assets/img/bg-2.jpg');
+    margin-top: 4.5rem;
+    margin-bottom: 0;
+    background-position-x: right;
+    position: relative;
+    opacity: 1;
+    background-image: url("https://cn.pling.com/img/2/1/7/4/ce6effe81074e440133fb4f36646b6b16ffd.jpg");
+    background-position: 50% 0;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.btn-title {
+    font-size: 1rem;
+}
+
+.btn {
+    padding: 10px 10px 10px 4px;
+}
+
+h1,
+h2,
+h3,
+p,
+span {
+    margin-bottom: 0;
+}
+
+.display-1 {}

@@ -17,8 +17,12 @@
                     <!-- form card register -->
                     <form [formGroup]="rForm" (ngSubmit)="addPodcast(rForm.value)" class="form" role="form" autocomplete="on">
                         <div class="form-group">
-                            <label for="inputName">Title</label>
-                            <input type="text" class="form-control" id="title" formControlName="title" placeholder="Happiness and how to Keep it">
+                            <label for="title" class="mb-0">Title</label>
+                            <div class="row mb-1">
+                                <div class="col-lg-12">
+                                    <textarea rows="2" cols="40" class="form-control" id="title" formControlName="title" placeholder="Your podcast title"></textarea>
+                                </div>
+                            </div>
                             <div class="alert alert-dismissible alert-danger" *ngIf="!rForm.controls['title'].valid && rForm.controls['title'].touched">
                                 {{titleAlert}} (Min 4 characters)
                             </div>
@@ -27,7 +31,7 @@
                             <label for="description" class="mb-0">Description</label>
                             <div class="row mb-1">
                                 <div class="col-lg-12">
-                                    <textarea rows="6" formControlName="description" id="description" class="form-control" placeholder="In the next Podcast i'll be telling about what makes me happy and how do i maintain that happines ..."></textarea>
+                                    <textarea rows="2" cols="40" formControlName="description" id="description" class="form-control" placeholder="Let your audience know what are"></textarea>
                                 </div>
                             </div>
                             <div class="alert alert-dismissible alert-danger" *ngIf="!rForm.controls['description'].valid && rForm.controls['description'].touched">
@@ -38,7 +42,7 @@
                             <label for="hastags" class="mb-0">Add Tags</label>
                             <div class="row mb-1">
                                 <div class="col-lg-12">
-                                    <textarea rows="6" formControlName="tags" id="tags" class="form-control" placeholder="#cool #happy #smiling #summer"></textarea>
+                                    <textarea rows="1" cols="10" formControlName="tags" id="tags" class="form-control" placeholder="#cool #happy"></textarea>
                                 </div>
                             </div>
                             <div class="alert alert-dismissible alert-danger" *ngIf="!rForm.controls['tags'].valid && rForm.controls['tags'].touched">
@@ -47,10 +51,10 @@
                         </div>
                         <ul class="nav nav-pills">
                             <li class="nav-item">
-                                <a class="nav-link active" (click)="changeAudioFileActive(true)" data-toggle="tab" href="#audio">Upload Audio File <i class="fa fa-file-audio-o fa-2x"></i></a>
+                                <a class="nav-link active" (click)="changeAudioFileActive(true)" data-toggle="tab" href="#audio">Upload Audio File <i class="far fa-file-audio fa-2x "></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" (click)="changeAudioFileActive(false)" data-toggle="tab" href="#image">Upload Image <i class="fa fa-file-image-o fa-2x"></i></a>
+                                <a class="nav-link" (click)="changeAudioFileActive(false)" data-toggle="tab" href="#image">Upload Image <i class="far fa-file-image fa-2x"></i></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" (click)="changeAudioFileActive(false)" data-toggle="tab" href="#record">Record  <i class="fa fa-microphone fa-2x"></i></a>
@@ -69,8 +73,10 @@
                                 <div class="form-group">
                                     <div [hidden]='currentAudioFile?.progress > 0' class="box">
                                         <div class="dropzone" fileDrop (filesDropped)="handleDrop($event)" (filesHovered)="dropzoneState($event)" [ngClass]="{'border-primary active':dropzoneActive}">
-                                            <h5 [ngClass]="{'text-primary':dropzoneActive}">Drop Audio File Here</h5>
-                                            <i [ngClass]="{'text-primary':dropzoneActive}" class="fa fa-cloud-upload fa-2x"></i>
+                                            <input accept="audio/*" type="file" (change)="fileChangeEvent($event)" title=" " name="file" class="inputfile" />
+
+                                            <h5 [ngClass]="{'text-primary':dropzoneActive}">Drop Audio File Here Or Click to Upload</h5>
+                                            <i [ngClass]="{'text-primary':dropzoneActive}" class="fas fa-cloud-upload-alt fa-2x"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -87,8 +93,9 @@
                                 <div class="form-group">
                                     <div *ngIf='!currentImageFile' class="box">
                                         <div class="dropzone" fileDrop (filesDropped)="handleDrop($event)" (filesHovered)="dropzoneState($event)" [ngClass]="{'border-primary active':dropzoneActive}">
-                                            <h5 [ngClass]="{'text-primary':dropzoneActive}">Drop Image File Here</h5>
-                                            <i [ngClass]="{'text-primary':dropzoneActive}" class="fa fa-cloud-upload fa-2x"></i>
+                                            <input accept="image/*" type="file" (change)="fileChangeEvent($event)" title=" " name="file" class="inputfile" />
+                                            <h5 [ngClass]="{'text-primary':dropzoneActive}">Drop Image File Here Or Click to Upload</h5>
+                                            <i [ngClass]="{'text-primary':dropzoneActive}" class="fas fa-cloud-upload-alt fa-2x"></i>
                                         </div>
                                     </div>
                                 </div>

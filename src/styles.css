@@ -9,6 +9,7 @@ a :hover {
 /* Smartphones (portrait and landscape) ----------- */
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    font-size: calc(16px + 0.5vw);
     .form-control {
         font-size: calc(16px + 0.5vw);
     }
@@ -19,6 +20,20 @@ a :hover {
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
     /* STYLES GO HERE */
+    font-size: calc(16px + 0.5vw);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-transform: none;
+}
+
+btn .btn {
+    text-transform: none;
 }
 
 body,
@@ -34,4 +49,16 @@ app-root {
     max-height: 100%;
     overflow: hidden;
     flex-direction: column;
+}
+
+.alert {
+    position: relative;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0;
+    height: 6rem;
+    /* text-align: center; */
+    align-items: center;
+    display: flex;
 }

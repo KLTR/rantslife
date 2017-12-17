@@ -1,3 +1,5 @@
+import {User} from '../models/user';
+import {Comment} from '../models/comment';
 export interface Podcast {
   id?:string;
   file?:string;
@@ -10,5 +12,10 @@ export interface Podcast {
   date?:Date;
   audio_file_url?:string;
   image_file_url?:string;
-  hashtags?:[string];
+  hashtags?:string[];
+  likes?:User[];
+  comments?:Comment[];
+  listeners?:User[];
+  audio_id?:string;
+  image_id?:string;
 }

@@ -1,32 +1,120 @@
 <!-- Copyright 2017, Rant's Life, All rights reserved -->
 <!--  This code was written by Roy Levy -->
 
-
-<div (click)="toggleSidenav();" class="trending cover">
-    <h2>Trending</h2>
+<div class="trending cover">
+    <div class="jumbotron ">
+        <h1>Trending</h1>
+    </div>
     <div class="row main">
-        <div *ngFor='let podcast of trendingPodcasts' class="card col-lg-3 col-md-6 col-xs-12">
+        <div class="card col-lg-3 col-md-6 col-xs-12">
             <div class="container">
                 <div class="info">
                     <div class="column">
-                        <div class="demo-title">{{podcast.title}}</div>
-                        <div class="post-module" (mouseenter)='hoverCard(podcast.id)' (mouseleave)='hoverCard(podcast.id)'>
+                        <div class="demo-title">Media Recorder API</div>
+                        <div class="post-module">
                             <div class="thumbnail">
 
-                                <img [src]='podcast.image_file_url' />
+                                <img src="https://firebasestorage.googleapis.com/v0/b/rantslife-527d9.appspot.com/o/image_files%2F4fIzxgowXQZhQ7XlYcsO?alt=media&amp;token=4d587150-0b97-4470-9fed-48185da0c0d3">
                             </div>
                             <div class="post-content">
-                                <div class="category bg-danger">{{podcast.mainCategory}} Main Category</div>
-                                <h1 class="title">{{podcast.title}}</h1>
-                                <h2 class="sub_title">{{podcast.subtitle}} Subtitle</h2>
-                                <p [attr.id]="podcast.id" class="description">{{podcast.description}}
-                                    <audio controls>
-                                        <source src="{{podcast.audio_file_url}}" type="audio/ogg">
+                                <div class="category bg-danger"> Main Category</div>
+                                <h1 class="title">Media Recorder API</h1>
+                                <h2 class="sub_title"> Subtitle</h2>
+                                <p class="description" id="JbK0jTAb9qnVawsBKx0z" style="display: none; height: 50px; opacity: 1;">mimeType: "audio/webm", audioBitsPerSecond: 128000, bitsPerSecond: 128000, type: "audio"
+                                    <audio controls="">
+                                        <source  type="audio/ogg" src="https://firebasestorage.googleapis.com/v0/b/rantslife-527d9.appspot.com/o/audio_files%2FV3wR9UJ9f3UYRtZCbFkf?alt=media&amp;token=fefd1841-bd8c-4fb8-b66a-af4fcf4ded4f">
                                     </audio>
                                 </p>
 
-                                <div class="post-meta"><span class="timestamp"><i class="fa fa-clock-o"></i> {{ podcast.date.toLocaleDateString()}}</span><span class="comments"><i class="fa fa-comments-o"></i><a href="#">{{podcast.comments?.length()}} comments</a></span>
-                                    <span><i class="fa fa-thumbs-o-up"></i>likes {{podcast.likes?.length()}}</span>
+                                <div class="post-meta"><span class="timestamp"><i  class="fa fa-clock-o"></i> 11/25/2017</span><span class="comments"><i  class="fa fa-comments-o"></i><a  href="#"> comments</a></span>
+                                    <span><i  class="fa fa-thumbs-o-up"></i>likes </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card col-lg-3 col-md-6 col-xs-12">
+            <div class="container">
+                <div class="info">
+                    <div class="column">
+                        <div class="demo-title">HEllo whats up</div>
+                        <div class="post-module">
+                            <div class="thumbnail">
+
+                                <img src="https://firebasestorage.googleapis.com/v0/b/rantslife-527d9.appspot.com/o/image_files%2F0hLsFcdLG0xjP4vI05GW?alt=media&amp;token=203f14c3-2c41-413a-b5bc-471e27d0cb2a">
+                            </div>
+                            <div class="post-content">
+                                <div class="category bg-danger"> Main Category</div>
+                                <h1 class="title">HEllo whats up</h1>
+                                <h2 class="sub_title"> Subtitle</h2>
+                                <p class="description" id="IFqRDvTuvotlLzOELwrC" style="display: none;">Yo yo im good man how are you &gt;
+                                    <audio controls="">
+                                        <source  type="audio/ogg" src="https://firebasestorage.googleapis.com/v0/b/rantslife-527d9.appspot.com/o/audio_files%2F5Jq61NvhpMf5Ch2Bj3nE?alt=media&amp;token=9e9b6e7a-c2c7-4a4c-bf6b-347539170c48">
+                                    </audio>
+                                </p>
+
+                                <div class="post-meta"><span class="timestamp"><i  class="fa fa-clock-o"></i> 11/15/2017</span><span class="comments"><i  class="fa fa-comments-o"></i><a  href="#"> comments</a></span>
+                                    <span><i  class="fa fa-thumbs-o-up"></i>likes </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card col-lg-3 col-md-6 col-xs-12">
+            <div class="container">
+                <div class="info">
+                    <div class="column">
+                        <div class="demo-title">I was 22 years old</div>
+                        <div class="post-module">
+                            <div class="thumbnail">
+
+                                <img src="https://firebasestorage.googleapis.com/v0/b/rantslife-527d9.appspot.com/o/image_files%2FcwJ1GheNVWZIYkvamJXw?alt=media&amp;token=fadee66c-3a79-4b8f-b6f1-678bd9dbba83">
+                            </div>
+                            <div class="post-content">
+                                <div class="category bg-danger"> Main Category</div>
+                                <h1 class="title">I was 22 years old</h1>
+                                <h2 class="sub_title"> Subtitle</h2>
+                                <p class="description" id="ZCmDjKkx2SLW5YRPhcGu" style="display: none;">I think you are the greatest one iv'e ever met
+                                    <audio controls="">
+                                        <source  type="audio/ogg" src="https://firebasestorage.googleapis.com/v0/b/rantslife-527d9.appspot.com/o/audio_files%2FtjziXIhHvRe90jGkT8l8?alt=media&amp;token=c17b466e-fe1c-48d0-a632-201305969c46">
+                                    </audio>
+                                </p>
+
+                                <div class="post-meta"><span class="timestamp"><i  class="fa fa-clock-o"></i> 11/15/2017</span><span class="comments"><i  class="fa fa-comments-o"></i><a  href="#"> comments</a></span>
+                                    <span><i  class="fa fa-thumbs-o-up"></i>likes </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card col-lg-3 col-md-6 col-xs-12">
+            <div class="container">
+                <div class="info">
+                    <div class="column">
+                        <div class="demo-title">You are leaving my house ? </div>
+                        <div class="post-module">
+                            <div class="thumbnail">
+
+                                <img src="https://firebasestorage.googleapis.com/v0/b/rantslife-527d9.appspot.com/o/image_files%2FcwJ1GheNVWZIYkvamJXw?alt=media&amp;token=fadee66c-3a79-4b8f-b6f1-678bd9dbba83">
+                            </div>
+                            <div class="post-content">
+                                <div class="category bg-danger"> Main Category</div>
+                                <h1 class="title">You are leaving my house ? </h1>
+                                <h2 class="sub_title"> Subtitle</h2>
+                                <p class="description" id="9vnUEW9xSeQtE1wqfCTT" style="display: none;">And you are taking the baby as well ?
+                                    <audio controls="">
+                                        <source  type="audio/ogg" src="https://firebasestorage.googleapis.com/v0/b/rantslife-527d9.appspot.com/o/audio_files%2FtjziXIhHvRe90jGkT8l8?alt=media&amp;token=c17b466e-fe1c-48d0-a632-201305969c46">
+                                    </audio>
+                                </p>
+
+                                <div class="post-meta"><span class="timestamp"><i  class="fa fa-clock-o"></i> 11/15/2017</span><span class="comments"><i  class="fa fa-comments-o"></i><a  href="#"> comments</a></span>
+                                    <span><i  class="fa fa-thumbs-o-up"></i>likes </span>
                                 </div>
                             </div>
                         </div>

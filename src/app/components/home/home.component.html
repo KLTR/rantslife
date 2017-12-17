@@ -1,17 +1,20 @@
 <!-- Copyright 2017, Roy Levy, All rights reserved -->
 
-<div class="jumbotron text-center">
-    <h1 class="display-5 text-white">Rant's.Life<br> A Home For Your Thoughts</h1>
-    <p class="text-secondary">Rant what's on your mind</p>
+<div class="jumbotron">
+    <!-- <h1 class="display-1 ">Rants.Life</h1> -->
+    <h3>A Home For Your Thoughts</h3>
+    <p class="">Rant what's on your mind</p>
     <p>
-        <button [disabled]='!auth.user' class="btn btn-success btn-lg" data-toggle="modal" type="button" data-target="#myModal">
-            <span class="align-middle">Share A Rant With The World</span>
-            <img class="align-middle" aria-hidden="true" src="../assets/img/record_white.png">
+        <button class="btn btn-primary btn-lg" data-toggle="modal" type="button" data-target="#myModal">
+                <img class="align-middle" aria-hidden="true" src="../assets/img/record_white.png">                
+            <span class="align-middle btn-title">Share A Rant With The World</span>
         </button>
     </p>
+
 </div>
 
 
 <app-record></app-record>
-<hr>
-<app-trending></app-trending>
+<!-- <app-trending></app-trending>
+ -->
+<app-content></app-content>

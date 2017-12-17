@@ -1,13 +1,15 @@
 <!-- Copyright 2017, Rant's Life, All rights reserved -->
 <!--  This code was written by Roy Levy -->
 
-<flash-messages></flash-messages>
 <div class="app-container">
+
     <app-navbar (updateSideNav)='toggleSideNavParent($event)'>
     </app-navbar>
+    <flash-messages></flash-messages>
+
     <router-outlet>
     </router-outlet>
 </div>
-<div class="sidenav-overflow" [ngClass]="{'show-overflow':isSideNavOpen}">
+<div *ngIf="authService.getAuthState()" class="sidenav-overflow" [ngClass]="{'show-overflow':isSideNavOpen}">
     <app-sidenav [isSideNavOpen]='isSideNavOpen'></app-sidenav>
 </div>

@@ -7,6 +7,10 @@ a:hover {
     color: #F60;
 }
 
+navbar {
+    margin-top: 85px;
+}
+
 h1 {
     font: 1.7em;
     line-height: 110%;

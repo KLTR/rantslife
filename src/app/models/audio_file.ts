@@ -11,6 +11,7 @@ export class AudioFile {
     progress?:number;
     podcast_id?:string;
     progressString?:string;
+    ref?:string;
     createdAt?: Date = new Date();
     constructor(file:File) {
       this.file = file;

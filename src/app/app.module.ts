@@ -37,13 +37,18 @@ import * as firebase from 'firebase';
 import { TrendingComponent } from './components/trending/trending.component';
 import { LiveRecordComponent } from './components/live-record/live-record.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { ContentComponent } from './components/content/content.component';
+import { PopularComponent } from './components/popular/popular.component';
+import { LoginComponent } from './components/login/login.component';
 
 const appRoutes: Routes = [
-  {path:'', component:HomeComponent},
+  {path:'', component:HomeComponent, canActivate: [AuthGuard]},
+  {path:'login', component:LoginComponent},  
+  {path:'home', component:HomeComponent, canActivate: [AuthGuard]},  
   {path:'items', component:ItemsComponent},
   {path:'add-item', component:AddItemComponent , canActivate: [AuthGuard]},
-  {path:'profile', component:UserProfileComponent },
-  {path:'record', component:RecordComponent},
+  {path:'profile', component:UserProfileComponent, canActivate: [AuthGuard] },
+  {path:'record', component:RecordComponent, canActivate: [AuthGuard]},
   
 ]
 
@@ -62,6 +67,9 @@ firebase.initializeApp(environment.firebase);
     TrendingComponent,
     LiveRecordComponent,
     SidenavComponent,
+    ContentComponent,
+    PopularComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

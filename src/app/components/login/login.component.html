@@ -1,0 +1,64 @@
+<!-- Copyright 2017, Rant's Life, All rights reserved -->
+<!--  This code was written by Roy Levy -->
+
+<div *ngIf="auth.user | async; then authenticated else guest">
+    <!-- template will replace this div -->
+</div>
+
+<ng-template #guest>
+    <div class="wrap">
+        <div class="row">
+            <div id="form" class="col-lg-5 col-sm-12  form flex-col">
+                <h1>We are Rants.Life</h1>
+                <p class="lead">Welcome, Please login to your account.</p>
+                <div class="row flex-col">
+                    <div class="buttons">
+                        <button type="button" class="btn btn-block custom-btn" (click)="auth.googleLogin()">
+                         <i class="fab fa-google" ></i> Connect With Google
+                       </button>
+                        <button type="button" class="btn btn-block custom-btn" (click)="auth.facebookLogin()">
+                          <i class="fab fa-facebook "></i> Connect With Facebook
+                      </button>
+                    </div>
+                </div>
+                <div class="footer flex-col">
+                    <div class="flex">
+                        <p><strong>connect with us :</strong></p>
+                    </div>
+                    <div class="flex">
+                        <ul class="social-icons icon-circle list-unstyled list-inline">
+                            <li> <a href="https://www.facebook.com/Rants.Life/"><i class="fab fa-facebook-square "></i></a></li>
+                            <li> <a href="https://www.instagram.com/rantslifedaily"><i class="fab fa-instagram "></i></a></li>
+                            <li> <a href="#"><i class="fab fa-youtube "></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="flex bottom">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12">
+                                <p class="mute">By signing in you agree to Rants.Life's</p>
+
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                                <p class="strong"><strong><a href="*">Terms and conditions & Privacy policy</a></strong></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="image" class="col-lg-7 col-sm-12 image">
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #authenticated>
+    <div *ngIf="auth.user | async as user">
+        <h3>Howdy, {{user.displayName}}</h3>
+        <!-- <img [src]="user.photoURL">
+        <p>UID: {{user.uid}}</p>
+        <p>Favorite Color: {{user?.favoriteColor}}</p>
+        <button (click)="auth.signOut()">Logout</button> -->
+        <h2>We are getting you in ..</h2>
+    </div>
+</ng-template>

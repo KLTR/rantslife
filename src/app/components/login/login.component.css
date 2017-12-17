@@ -1,0 +1,189 @@
+* {
+    font-family: 'Heebo', sans-serif;
+    color: white;
+}
+
+.row {
+    height: 100%;
+}
+
+.wrap {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+#form {
+    padding-top: 5rem;
+    height: 100%;
+    width: 100%;
+    background-color: #16A085;
+    overflow: hidden;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#image {
+    height: 100%;
+    width: 100%;
+    background-image: url('https://cdn.dribbble.com/users/52084/screenshots/4006832/pattern.jpg');
+    overflow: hidden;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.custom-btn {
+    padding: 15px 20px;
+    border-radius: 0px;
+    border: 1px solid #fff;
+    background: none;
+    color: #fff;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 2px;
+    -webkit-transition: background 0.5s ease;
+    -webkit-transition: color 0.5s ease;
+}
+
+.custom-btn:hover {
+    color: #000 !important;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.custom-btn:hover .fa {
+    color: #000 !important;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.buttons {
+    position: absolute;
+    top: 3rem;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 2px;
+}
+
+.footer {
+    background-color: rgb(15, 114, 94);
+    width: 100%;
+    height: 20rem;
+}
+
+
+/* Social Icons */
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+.list-inline li {
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-bottom: 10px;
+}
+
+
+/*---- Genral classes end -------*/
+
+
+/*Change icons size here*/
+
+.social-icons svg {
+    font-size: 1.8em;
+}
+
+
+/*Change icons circle size and color here*/
+
+.social-icons svg {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #FFF;
+    color: rgba(255, 255, 255, 0.8);
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -ms-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+}
+
+.social-icons.icon-circle svg {
+    border-radius: 50%;
+}
+
+.social-icons.icon-rounded svg {
+    border-radius: 5px;
+}
+
+.social-icons.icon-flat .fab {
+    border-radius: 0;
+}
+
+.social-icons svg:hover,
+.social-icons svg:active {
+    color: #FFF;
+    -webkit-box-shadow: 1px 1px 3px #333;
+    -moz-box-shadow: 1px 1px 3px #333;
+    box-shadow: 1px 1px 3px #333;
+    transition: all 0.2s ease-in;
+}
+
+.social-icons.icon-zoom svg:hover,
+.social-icons.icon-zoom svg:active {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.social-icons.icon-rotate svg:hover,
+.social-icons.icon-rotate svg:active {
+    -webkit-transform: scale(1.1) rotate(360deg);
+    -moz-transform: scale(1.1) rotate(360deg);
+    -ms-transform: scale(1.1) rotate(360deg);
+    -o-transform: scale(1.1) rotate(360deg);
+    transform: scale(1.1) rotate(360deg);
+}
+
+
+/* Instgarm */
+
+.social-icons .fa-instagram:hover {
+    background-color: #F46899;
+}
+
+
+/* Facebook */
+
+.social-icons .fa-facebook:hover,
+.social-icons .fa-facebook-square:hover {
+    background-color: #3C599F;
+}
+
+
+/* Youtube */
+
+.social-icons .fa-youtube:hover,
+.social-icons .fa-youtube-play:hover,
+.social-icons .fa-youtube-square:hover {
+    background-color: #C52F30;
+}
