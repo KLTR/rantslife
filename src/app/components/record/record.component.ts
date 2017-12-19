@@ -42,7 +42,8 @@ export class RecordComponent implements OnInit {
     comments: null,
     listeners : null,
     image_id: '',
-    audio_id: ''
+    audio_id: '',
+    user_id: '',
   }
   @ViewChild('progressbar, progressbarImage') div: ElementRef;
   constructor(
@@ -72,6 +73,8 @@ export class RecordComponent implements OnInit {
     // files are stored in (user_content/{uid}/{pid}/{filename})
     
     this.podcast.creator = this.authService.getCurrentUser().displayName;
+    this.podcast.user_id = this.authService.getCurrentUser().uid;
+    console.log('user id from podcast is '+ this.podcast.user_id);
     this.podcast.title = podcast.title;
     this.podcast.description = podcast.description;
     this.podcast.date = new Date();
@@ -80,18 +83,22 @@ export class RecordComponent implements OnInit {
     this.podcast.listeners = new Array<User>();
     this.podcast.hashtags = podcast.tags;
     this.podcast.audio_file_url = this.currentAudioFile.url;
+    // image file is not required.
     if(this.currentImageFile){
     this.podcast.image_file_url = this.currentImageFile.url;
   }
     this.firebaseService.addPodcastToCollection(this.podcast).then(()=>{
       this.firebaseService.flashMessagesService.show('sharing is caring',  { cssClass: 'alert alert-success', timeout: 3000 }); 
+      // resetting form podcast Object and files
       this.resetFormFields();
-      this.currentAudioFile = null;
-      this.currentImageFile = null;         
+      this.resetPodcast();
+      this.resetFiles();      
     },
   (err)=>{
-    
+    console.log(err);
+    this.clearAll();
   });
+
   }
 
   clearAll(){
@@ -100,19 +107,35 @@ export class RecordComponent implements OnInit {
     this.firebaseService.cancelFileUpload(this.currentAudioFile.ref).then((res)=>{
       this.currentAudioFile = null;   
     });
-    if(this.currentImageFile){
-      console.log(this.currentImageFile.url)
-      
+    if(this.currentImageFile){      
       this.firebaseService.cancelFileUpload(this.currentImageFile.ref).then((res)=>{
         this.currentImageFile = null;   
       });
-  }
-  this.resetFormFields();
     }
-    this.currentAudioFile = null;
-    this.currentImageFile = null;
+    this.resetPodcast()    
+  this.resetFormFields();
+    // Make sure current files are nullified
+   this.resetFiles()
   }
+}
 
+  resetPodcast(){
+    this.podcast = {
+      title: '',
+      description: '',
+      date: null,
+      audio_file_url: '',
+      image_file_url:'',
+      hashtags: null,
+      id:null,
+      likes: null,
+      comments: null,
+      listeners : null,
+      image_id: '',
+      audio_id: '',
+      user_id: '',
+    }
+  }
 
 
 resetFormFields(){
@@ -122,7 +145,10 @@ resetFormFields(){
     }
 }
 
-
+resetFiles(){
+  this.currentAudioFile = null;
+  this.currentImageFile = null;
+}
 
 
 // File uploads
@@ -136,34 +162,58 @@ resetFormFields(){
 
 
   // Drop Upload
-  handleDrop(fileList: FileList){
-    let filesIndex = _.range(fileList.length)
 
-    _.each(filesIndex, (idx) => {
-      // Create a new AudioFile Object with the File that the user uploaded.
+
+  handleDrop(file){
       if(this.audioFileActive){
-      this.currentAudioFile = new AudioFile(fileList[0])
+      this.currentAudioFile = new AudioFile(file)
+      console.log(this.currentAudioFile);
       this.currentAudioFile.podcast_id = this.podcast.id;
       this.firebaseService.pushUploadAudio(this.currentAudioFile);
       }
       else{
-        this.currentImageFile = new ImageFile(fileList[0])
+        this.currentImageFile = new ImageFile(file)
         this.currentImageFile.podcast_id = this.podcast.id;        
+        console.log(this.currentImageFile);
         this.firebaseService.pushUploadImage(this.currentImageFile);
       }      
-    })
-  }
+    }
+  
+
+  // handleDrop(fileList: FileList){
+  //   // let filesIndex = _.range(fileList.length)
+
+  //   _.each(filesIndex, (idx) => {
+  //     // Create a new AudioFile Object with the File that the user uploaded.
+  //     if(this.audioFileActive){
+  //     this.currentAudioFile = new AudioFile(fileList[0])
+  //     console.log(this.currentAudioFile);
+      
+  //     this.currentAudioFile.podcast_id = this.podcast.id;
+  //     this.firebaseService.pushUploadAudio(this.currentAudioFile);
+  //     }
+  //     else{
+  //       this.currentImageFile = new ImageFile(fileList[0])
+  //       this.currentImageFile.podcast_id = this.podcast.id;        
+  //       console.log(this.currentImageFile);
+        
+  //       this.firebaseService.pushUploadImage(this.currentImageFile);
+  //     }      
+  //   })
+  // }
 
   // Click Upload
   fileChangeEvent(event) {
-    let fileList: FileList = event.target.files;
+    let file: File = event.target.files[0];
     if(this.audioFileActive){
-      this.currentAudioFile = new AudioFile(fileList[0])
-      this.currentImageFile.podcast_id = this.podcast.id;              
+      this.currentAudioFile = new AudioFile(file)
+      console.log(this.currentAudioFile);
+      this.currentAudioFile.podcast_id = this.podcast.id;              
       this.firebaseService.pushUploadAudio(this.currentAudioFile);
       }
       else{
-        this.currentImageFile = new ImageFile(fileList[0])
+        this.currentImageFile = new ImageFile(file)
+        console.log(this.currentImageFile);
         this.currentImageFile.podcast_id = this.podcast.id;                
         this.firebaseService.pushUploadImage(this.currentImageFile);
       } 

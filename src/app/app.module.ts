@@ -8,8 +8,7 @@ import  {RouterModule, Routes } from '@angular/router'
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { AddItemComponent } from './components/add-item/add-item.component'
-import { ItemsComponent } from './components/items/items.component'
+
 
 // AngularFireStuff
 import {AngularFireModule} from 'angularfire2'
@@ -38,15 +37,12 @@ import { TrendingComponent } from './components/trending/trending.component';
 import { LiveRecordComponent } from './components/live-record/live-record.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ContentComponent } from './components/content/content.component';
-import { PopularComponent } from './components/popular/popular.component';
 import { LoginComponent } from './components/login/login.component';
 
 const appRoutes: Routes = [
-  {path:'', component:HomeComponent, canActivate: [AuthGuard]},
+  {path: '', redirectTo: 'home', pathMatch: 'full',canActivate: [AuthGuard]},
   {path:'login', component:LoginComponent},  
   {path:'home', component:HomeComponent, canActivate: [AuthGuard]},  
-  {path:'items', component:ItemsComponent},
-  {path:'add-item', component:AddItemComponent , canActivate: [AuthGuard]},
   {path:'profile', component:UserProfileComponent, canActivate: [AuthGuard] },
   {path:'record', component:RecordComponent, canActivate: [AuthGuard]},
   
@@ -59,8 +55,6 @@ firebase.initializeApp(environment.firebase);
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    ItemsComponent,
-    AddItemComponent,
     UserProfileComponent,
     RecordComponent,
     FileDropDirective,
@@ -68,7 +62,6 @@ firebase.initializeApp(environment.firebase);
     LiveRecordComponent,
     SidenavComponent,
     ContentComponent,
-    PopularComponent,
     LoginComponent,
   ],
   imports: [

@@ -1,4 +1,4 @@
-<div *ngIf="auth.getAuthState()" [ngClass]="{'activeSideBar' : isSideNavOpen}" id="sidenav" class="sidenav bg-primary">
+<div *ngIf="auth.getAuthState()" [ngClass]="{'activeSideBar' : isSideNavOpen}" id="sidenav" class="sidenav">
     <div *ngIf="auth.user | async; then authenticated else guest">
         <!-- template will replace this div -->
     </div>

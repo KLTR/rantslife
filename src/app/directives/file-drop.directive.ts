@@ -15,7 +15,7 @@ export class FileDropDirective {
     $event.preventDefault();
 
     let transfer = $event.dataTransfer;
-    this.filesDropped.emit(transfer.files);
+    this.filesDropped.emit(transfer.files[0]);
     this.filesHovered.emit(false);
   }
 

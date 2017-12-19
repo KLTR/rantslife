@@ -57,7 +57,7 @@ a,
 
 form.input-search {
     position: relative;
-    margin-bottom: 50px;
+    margin-bottom: 5px;
 }
 
 .input-search input[type="text"] {
@@ -112,20 +112,20 @@ input::-webkit-input-placeholder {
 }
 
 .be-drop-down .drop-down-list {
-    border-left: 1px solid #0d58c8;
-    border-right: 1px solid #0d58c8;
+    border-left: 1px solid #54587E;
+    border-right: 1px solid #54587E;
 }
 
 .be-drop-down:hover,
 .be-drop-down:active .be-drop-down.be-dropdown-active {
-    background: #0d58c8;
+    background: #54587E;
     color: #FFF;
 }
 
 .be-drop-down .drop-down-list {
     position: absolute;
-    width: 99%;
-    top: 100%;
+    width: 100%;
+    top: 105%;
     left: -1px;
     z-index: 228;
     box-sizing: content-box;
@@ -154,7 +154,7 @@ input::-webkit-input-placeholder {
 }
 
 .drop-down-list {
-    background: #0d58c8;
+    background: #54587E;
     color: #FFF;
     width: 100%;
     left: 0;
@@ -551,6 +551,46 @@ ol {
     margin-bottom: 15px;
 }
 
-.col-xl-2 {
-    width: 20%;
+
+/* Podcasts search view */
+
+
+/* ul (list) */
+
+.flex-container {
+    /* display: flex;
+    flex-direction: column; */
+    overflow-y: auto;
+    height: 200px;
+}
+
+
+/* list-item */
+
+.flex {
+    display: flex;
+    border: 1px solid #54587E;
+    padding: 3px;
+    margin: 1px;
+    align-items: center;
+    display: flex;
+    transition: all 0.2s ease-in;
+    height: 60px;
+}
+
+.flex:hover {
+    cursor: pointer;
+    color: white;
+    background-color: #54587E;
+}
+
+.flex span {
+    margin: 1px;
+}
+
+
+/* list p item */
+
+.flex p {
+    flex: 1;
 }

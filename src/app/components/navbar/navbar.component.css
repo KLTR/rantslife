@@ -70,3 +70,7 @@ input::-webkit-input-placeholder {
 .fa-bars {
     font-size: 25px;
 }
+
+#nav {
+    background-color: #54587E;
+}

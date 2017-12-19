@@ -2,6 +2,7 @@ import {User} from '../models/user';
 import {Comment} from '../models/comment';
 export interface Podcast {
   id?:string;
+  user_id:string;
   file?:string;
   name?:string;
   url?:string;

@@ -106,10 +106,10 @@ public addPodcastToCollection(podcast: Podcast) : Promise<firebase.firestore.Doc
  public pushUploadAudio(upload: AudioFile){
    let storageRef = firebase.storage().ref();
    let uid = this.authService.getCurrentUser().uid;
-   console.log(uid);
    
   //  the audio file will be uploaded to the id generated to the Podcast Document
   let uploadTask = storageRef.child(`user_content`).child(uid).child(upload.podcast_id).child(upload.file.name).put(upload.file);
+  console.log(uploadTask);
   uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
     (snapshot) =>{
       // upload in progress
@@ -126,7 +126,7 @@ public addPodcastToCollection(podcast: Podcast) : Promise<firebase.firestore.Doc
           //  upload.name is the name ref in firebase storage
       upload.name = uploadTask.snapshot.ref.name;
       upload.ref = uploadTask.snapshot.ref.fullPath;
-      this.flashMessagesService.show('File was successfuly uploaded!',  { cssClass: 'alert alert-success', timeout: 1500 })
+      this.flashMessagesService.show('Audio was successfuly uploaded!',  { cssClass: 'alert alert-success', timeout: 1500 })
       
     }
   )
@@ -135,7 +135,6 @@ public addPodcastToCollection(podcast: Podcast) : Promise<firebase.firestore.Doc
  public pushUploadImage(upload: ImageFile){
   let uid = this.authService.getCurrentUser().uid;  
   let storageRef = firebase.storage().ref();
-  console.log(uid);
   let uploadTask = storageRef.child(`user_content`).child(uid).child(upload.podcast_id).child(upload.file.name).put(upload.file);
   uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
    (snapshot) =>{
@@ -154,7 +153,7 @@ public addPodcastToCollection(podcast: Podcast) : Promise<firebase.firestore.Doc
      upload.name = uploadTask.snapshot.ref.name;
      upload.ref = uploadTask.snapshot.ref.fullPath;
      console.log(upload.ref);
-     this.flashMessagesService.show('File was successfuly uploaded!',  { cssClass: 'alert alert-success', timeout: 3000 })     
+     this.flashMessagesService.show('Image was successfuly uploaded!',  { cssClass: 'alert alert-success', timeout: 3000 })     
    })
 }
 

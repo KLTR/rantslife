@@ -187,3 +187,7 @@
 .social-icons .fa-youtube-square:hover {
     background-color: #C52F30;
 }
+
+.btn:hover {
+    cursor: pointer;
+}

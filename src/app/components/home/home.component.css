@@ -11,14 +11,15 @@ h2 {}
     background-position-x: right;
     position: relative;
     opacity: 1;
-    background-image: url("https://cn.pling.com/img/2/1/7/4/ce6effe81074e440133fb4f36646b6b16ffd.jpg");
-    background-position: 50% 0;
+    background-image: url("../../../assets/img/bg-purple.jpg");
+    background-position: 50% 100%;
     -ms-background-size: cover;
     -o-background-size: cover;
     -moz-background-size: cover;
     -webkit-background-size: cover;
     background-size: cover;
     background-repeat: no-repeat;
+    color: black;
 }
 
 .btn-title {
@@ -27,6 +28,7 @@ h2 {}
 
 .btn {
     padding: 10px 10px 10px 4px;
+    background-color: black;
 }
 
 h1,
