@@ -106,7 +106,8 @@ public addPodcastToCollection(podcast: Podcast) : Promise<firebase.firestore.Doc
  public pushUploadAudio(upload: AudioFile){
    let storageRef = firebase.storage().ref();
    let uid = this.authService.getCurrentUser().uid;
-   
+   console.log(this.authService.getCurrentUser().getIdToken);
+   console.log(this.authService.getCurrentUser().getToken);
   //  the audio file will be uploaded to the id generated to the Podcast Document
   let uploadTask = storageRef.child(`user_content`).child(uid).child(upload.podcast_id).child(upload.file.name).put(upload.file);
   console.log(uploadTask);

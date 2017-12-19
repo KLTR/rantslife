@@ -207,7 +207,7 @@ ol {
 }
 
 .drop-down-list li a {
-    color: #fff !important;
+    color: #fff
 }
 
 .drop-down-list a {
@@ -263,7 +263,7 @@ p {
     position: relative;
     font-size: 13px;
     padding: 11px 15px 11px 20px;
-    color: #bdbfc8 !important;
+    color: #bdbfc8;
     cursor: pointer;
     border: 1px solid #E6E6E6;
 }
@@ -436,7 +436,7 @@ ol {
     border: 1px solid #edeff2;
     border-radius: 2px;
     width: 100%;
-    margin-bottom: 30px !important;
+    margin-bottom: 30px
 }
 
 .be-post .be-img-block {
@@ -523,7 +523,7 @@ ol {
     background: #F6F6F6;
     padding: 20px 15px;
     font-size: 10px;
-    color: #b4b7c1 !important;
+    color: #b4b7c1;
 }
 
 .be-post-tag {
@@ -552,6 +552,13 @@ ol {
 }
 
 
+/* drop downs */
+
+.drop-down-list li:hover {
+    background-color: #9C68B6;
+}
+
+
 /* Podcasts search view */
 
 
@@ -562,6 +569,18 @@ ol {
     flex-direction: column; */
     overflow-y: auto;
     height: 200px;
+}
+
+
+/* Tags */
+
+.tags_block ul li a {
+    background-color: #54587E;
+}
+
+.tags_block ul li a:hover {
+    background-color: #9C68B6;
+    color: white;
 }
 
 
@@ -576,12 +595,14 @@ ol {
     display: flex;
     transition: all 0.2s ease-in;
     height: 60px;
+    background-color: #54587E;
+    color: #bdbfc8;
 }
 
 .flex:hover {
     cursor: pointer;
     color: white;
-    background-color: #54587E;
+    background-color: #9C68B6;
 }
 
 .flex span {
@@ -593,4 +614,19 @@ ol {
 
 .flex p {
     flex: 1;
+}
+
+.be-vidget a {
+    background-color: #54587E;
+}
+
+.be-vidget a:hover {
+    background-color: #9C68B6;
+    color: white;
+}
+
+.dropdown-icon {
+    position: absolute;
+    left: 15px;
+    top: 19px;
 }
