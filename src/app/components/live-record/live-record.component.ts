@@ -12,6 +12,9 @@ export class LiveRecordComponent implements AfterViewInit {
   public isRecording: boolean = false
   public recordCompleted: boolean = false
   @ViewChild('audio') audio;
+
+
+ getUserMedia
   constructor() { }
 
   ngAfterViewInit() {
@@ -55,6 +58,11 @@ export class LiveRecordComponent implements AfterViewInit {
         const recordedBlob = recordRTC.getBlob();
         recordRTC.getDataURL(function (dataURL) { });
       }
+
+      toggleRecord(){
+        this.isRecording = !this.isRecording;
+      }
+
       startRecording() {
         this.isRecording = true;
         this.recordCompleted = false;
@@ -75,5 +83,4 @@ export class LiveRecordComponent implements AfterViewInit {
       download() {
         this.recordRTC.save('Rants.webm');
       }
-
-}
+    }

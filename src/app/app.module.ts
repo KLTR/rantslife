@@ -24,7 +24,6 @@ import { AuthGuard } from './authGuards/auth.guard'
 
 // Angular Material
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-// import {MatButtonModule, MatAutocompleteModule, MatSidenavModule, MatIconModule, MatCardModule, MatMenuModule, MatTableModule} from '@angular/material';
 
 // Flash messages
 import {FlashMessagesModule} from 'angular2-flash-messages'
@@ -38,6 +37,7 @@ import { LiveRecordComponent } from './components/live-record/live-record.compon
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ContentComponent } from './components/content/content.component';
 import { LoginComponent } from './components/login/login.component';
+import { RtcComponent } from './components/rtc/rtc.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full',canActivate: [AuthGuard]},
@@ -63,18 +63,19 @@ firebase.initializeApp(environment.firebase);
     SidenavComponent,
     ContentComponent,
     LoginComponent,
+    RtcComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
+    RouterModule.forRoot(appRoutes),    
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase, 'angularfs'),
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     FlashMessagesModule,
-    RouterModule.forRoot(appRoutes),
     
   ],
   providers: [FirebaseService, AuthService, AuthGuard],

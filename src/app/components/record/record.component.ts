@@ -67,7 +67,7 @@ export class RecordComponent implements OnInit {
 // Functions
 
 
-
+// Add podcat to podcast collection, userid's collection and add/update hashtags in collection
   addPodcast(podcast) {
     // creating id for podcast. 
     // files are stored in (user_content/{uid}/{pid}/{filename})
@@ -81,24 +81,39 @@ export class RecordComponent implements OnInit {
     this.podcast.likes = new Array<User>();
     this.podcast.comments = new Array<Comment>();
     this.podcast.listeners = new Array<User>();
-    this.podcast.hashtags = podcast.tags;
+    this.podcast.hashtags = podcast.tags.split(" ");
     this.podcast.audio_file_url = this.currentAudioFile.url;
     // image file is not required.
     if(this.currentImageFile){
     this.podcast.image_file_url = this.currentImageFile.url;
   }
+  // add podcast to global podcasts collection and to user's collection
     this.firebaseService.addPodcastToCollection(this.podcast).then(()=>{
-      this.firebaseService.flashMessagesService.show('sharing is caring',  { cssClass: 'alert alert-success', timeout: 3000 }); 
-      // resetting form podcast Object and files
-      this.resetFormFields();
-      this.resetPodcast();
-      this.resetFiles();      
+      this.firebaseService.flashMessagesService.show('sharing is caring',  { cssClass: 'alert alert-success', timeout: 3000 });
+      this.addPodcastToUserCollection(this.podcast); 
+      this.firebaseService.addHashtags(this.podcast.hashtags);
     },
   (err)=>{
     console.log(err);
     this.clearAll();
   });
 
+
+  }
+
+  addPodcastToUserCollection(podcast :Podcast){
+    console.log(podcast);
+    console.log(this.podcast.user_id);
+    this.firebaseService.addPodcastToUserCollection(podcast, this.podcast.user_id).then(()=>{
+            // resetting form podcast Object and files
+      this.resetFormFields();
+      this.resetPodcast();
+      this.resetFiles(); 
+    },
+    (err)=>{
+      console.log(err);
+      this.clearAll();
+    });
   }
 
   clearAll(){
@@ -146,8 +161,17 @@ resetFormFields(){
 }
 
 resetFiles(){
-  this.currentAudioFile = null;
-  this.currentImageFile = null;
+  if(this.currentAudioFile){
+    // sends the url of the files to cancel
+  this.firebaseService.cancelFileUpload(this.currentAudioFile.ref).then((res)=>{
+    this.currentAudioFile = null;   
+  });
+  if(this.currentImageFile){      
+    this.firebaseService.cancelFileUpload(this.currentImageFile.ref).then((res)=>{
+      this.currentImageFile = null;   
+    });
+  }
+  }  
 }
 
 

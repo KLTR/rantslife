@@ -476,18 +476,19 @@ ol {
 }
 
 .be-post-title {
+    padding: 5px;
     position: relative;
     display: block;
     font-size: 13px;
     line-height: 20px;
     color: #262626;
     border-bottom: 1px solid #edeff2;
-    margin: 0 15px 10px 15px;
     cursor: pointer;
     min-height: 52px;
     padding-bottom: 11px;
     overflow: hidden;
     text-overflow: ellipsis;
+    height: 2rem;
 }
 
 .be-post .be-img-block:after {
@@ -502,17 +503,14 @@ ol {
     border-color: transparent transparent #FFF transparent;
 }
 
-.be-post>span {
-    color: #b4b7c1;
-    display: block;
-    font-size: 11px;
-    line-height: 20px;
-    padding: 0 15px;
-    margin-bottom: 15px;
+.hashtags {
+    border-bottom: 1px solid #edeff2;
+    padding: 5px;
+    height: 5rem;
 }
 
 .author-post {
-    padding: 0 15px;
+    padding: 5px 0 0 5px;
     font-size: 11px;
     line-height: 15px;
     color: #b4b7c1;

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../services/auth.service'
+import { Component, OnInit, Output } from '@angular/core';
+import {AuthService} from '../../services/auth.service';
+import {FirebaseService} from '../../services/firebase.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,8 +8,10 @@ import {AuthService} from '../../services/auth.service'
 
 })
 export class HomeComponent implements OnInit {
+  @Output() podcasts ;
   
-  constructor(public auth: AuthService) { }
+  constructor(private auth: AuthService,
+  ){}
 
   ngOnInit() {
   }

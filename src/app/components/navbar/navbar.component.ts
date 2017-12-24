@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild,ElementRef, Output,EventEmitter } from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {DOCUMENT} from "@angular/common";
@@ -37,7 +38,8 @@ export class NavbarComponent implements OnInit {
   //! Constructor
   constructor(
     private firebaseService: FirebaseService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private router: Router) {
      }
 
 
@@ -66,7 +68,9 @@ export class NavbarComponent implements OnInit {
    }
    this.lastKeypress = $event.timeStamp;
  }
-
+route(path){
+  this.router.navigate(['/'+path]);
+}
  toggleSideNav($event){
   this.updateSideNav.emit($event);
  }

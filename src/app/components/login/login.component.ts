@@ -8,7 +8,6 @@ import { AuthService } from '../../services/auth.service'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   constructor(public auth: AuthService,
               public router: Router) { }
 

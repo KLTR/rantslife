@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Podcast} from '../../models/podcast';
 import {FirebaseService} from '../../services/firebase.service';
 import  {Subject } from 'rxjs/Subject';
@@ -15,6 +15,7 @@ export class ContentComponent implements OnInit {
   previousShown : number = 0;
   foundPodcasts;
   timeInterval;
+  // allPodcasts : Podcast[];
   allPodcasts : Podcast[];
   searchterm: string;
   startAt = new Subject();
@@ -27,25 +28,27 @@ export class ContentComponent implements OnInit {
   lastKeypress: number = 0;
   constructor(
     public firebaseService: FirebaseService,
-  ) {    this.firebaseService.getPodcasts().subscribe(podcasts => {
-    this.allPodcasts = podcasts;
-    console.log(this.allPodcasts);
-    let date = new Date()
-  }); }
+  ) {
+
+   }
 
   ngOnInit() {
     this.firebaseService.getPodcasts().subscribe(podcasts => {
+      console.log(podcasts)
       this.allPodcasts = podcasts;
-      console.log(this.allPodcasts);
       let date = new Date()
     });
 
+    
+    // Search observables
     Observable.combineLatest(this.startObserve, this.endObserve).subscribe((value) => {
       this.firebaseService.search(value[0], value[1]).subscribe((podcasts) =>{
         this.foundPodcasts = podcasts;
       })
-    })    
+    });    
   }
+
+
 
 toggleDropDown(num){
   this.isShown[num] = !this.isShown[num];

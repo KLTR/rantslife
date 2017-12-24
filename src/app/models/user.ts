@@ -1,3 +1,4 @@
+import { Podcast } from './podcast';
 export interface User{
     uid?:string;
     email?:string;
@@ -6,6 +7,8 @@ export interface User{
     displayName?:string;
     favoriteColor?: string;
     gender?:string;
-    accessToken?:string
+    accessToken?:string;
+    podcasts?:Podcast[];
+    date_joined?:string;
   }
   

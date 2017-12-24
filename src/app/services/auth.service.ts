@@ -66,6 +66,9 @@ anonymousLogin(){
   }
 
   private updateUserData(credential){
+    this.flashMessagesService.show('You are now logged in ', { cssClass: 'alert alert-success', timeout: 3000 })
+
+    console.log(credential);
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${credential.user.uid}`);
     const data: User = {
       uid: credential.user.uid,
@@ -77,14 +80,11 @@ anonymousLogin(){
     if(!data.gender){
       data.gender = 'Unassigned'
     }
-    this.flashMessagesService.show('You are now logged in ', { cssClass: 'alert alert-success', timeout: 3000 })
-    
     return userRef.set(data)
   }
   signOut() {
     this.afAuth.auth.signOut().then(() => {
       this.flashMessagesService.show('You are now logged out ', { cssClass: 'alert alert-success', timeout: 3000 })
-      
         this.router.navigate(['/login']);
     });
   }

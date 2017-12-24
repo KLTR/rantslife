@@ -1,32 +1,35 @@
 <!-- Copyright 2017, Rant's Life, All rights reserved -->
 <!--  This code was written by Roy Levy -->
+
 <div class="row">
-    <div>
+    <div class="col-sm-12">
         <audio #audio class="audio"></audio>
     </div>
+    <div class="col-sm-4">
+        <button class="btn btn-circle btn-main" (click)="startRecording()"><i class="fas fa-microphone"></i></button>
+    </div>
+    <div class="col-sm-4">
+        <button class="btn btn-circle btn-main" (click)="stopRecording()"><i class="fas fa-stop-circle"></i></button>
+    </div>
+    <div class="col-sm-4">
+        <button class="btn btn-circle btn-main" (click)="download()"><i class="fas fa-download"></i></button>
+    </div>
 </div>
-<div class="row">
-    <!-- <div class="frame">
-        <input type="checkbox" id="cb-1" name="cb" class="checkbox">
-        <label for="cb-1" class="label"></label>
-        <div class="microphone">
-            <svg width="100px" height="100px" viewBox="0 0 100 100">
-            <circle class="circle" cx="50" cy="50" r="47"/>
-          </svg>
-            <div class="icon">
-                <div class="body">
-                    <div class="fill"></div>
-                </div>
-                <div class="foot_v"></div>
-                <div class="foot_h"></div>
-            </div>
-            <div class="dots">
-                <div class="dot dot-1"></div>
-                <div class="dot dot-2"></div>
-                <div class="dot dot-3"></div>
-            </div>
-        </div> -->
-    <button class="notRec" [ngClass]="{'Rec': isRecording}" id='recButton' [disabled]="isRecording" type="button" (click)="startRecording()"> Record </button>
-    <button [disabled]="!isRecording || recordCompleted" type="button" (click)="stopRecording()"> Stop</button>
-    <button [disabled]="!recordCompleted" type="button" (click)="download()"> Download</button>
-</div>
+
+
+
+
+<!-- <div class="row">
+    <div class="col-sm-4">
+        <button class="notRec" [ngClass]="{'Rec': isRecording}" id='recButton' [hidden]="isRecording" type="button" (click)="startRecording()"> Record </button>
+    </div>
+    <div class="col-sm-4">
+        <button [hidden]="!isRecording || recordCompleted" type="button" (click)="stopRecording()"> Stop</button>
+    </div>
+    <div class="col-sm-4">
+        <button [hidden]="!recordCompleted" type="button" (click)="download()"> Download</button>
+    </div>
+    <div class="col-sm-12">
+        <audio [hidden]="!recordCompleted" #audio class="audio"></audio>
+    </div>
+</div> -->

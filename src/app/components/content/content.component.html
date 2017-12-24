@@ -163,23 +163,22 @@
         </div>
 
         <!-- ** Podcast section **-->
-        <div *ngIf="allPodcasts; else loading" class="col-md-10">
+        <div class="col-md-10">
             <div id="container-mix" class="row _post-container_">
                 <div *ngFor="let podcast of allPodcasts" class="col-xs-12 col-sm-6 col-md-4 col-xl-2" style="display: inline-block;">
                     <div class="be-post">
                         <a class="be-img-block">
                             <audio controls="">
-                                            <source  type="audio/ogg" [src]="podcast.audio_file_url">
-                                          </audio>
+                                <source  type="audio/mpeg" [src]="podcast.audio_file_url">
+                             </audio>
                             <img [src]="podcast.image_file_url" alt="omg">
                         </a>
-
                         <a class="be-post-title">{{podcast.title}}</a>
-                        <span>
-                            <a *ngFor="let tags of podcast.tag"  class="be-post-tag">Interaction Design</a>, 
-                            <a class="be-post-tag">UI/UX</a>,  
-                            <a class="be-post-tag">Web Design</a>
-                          </span>
+                        <div *ngIf="podcast.hashtags?.length > 0" class="hashtags">
+                            <span *ngFor="let tag of podcast.hashtags" class="badge badge-main">
+                                    <a>{{tag}}</a>
+                                    </span>
+                        </div>
                         <div class="author-post">
                             <!-- <img src="img/a1.png" alt="" class="ava-author"> -->
                             <span>by <a>{{podcast.creator}}</a></span>
@@ -195,7 +194,8 @@
         </div>
         <ng-template #loading>
             <div class="loading-screen">
-                <h2>Loading ..</h2>
+                <h2>Loading ..
+                </h2>
             </div>
         </ng-template>
     </div>

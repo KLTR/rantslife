@@ -13,11 +13,21 @@
     background-color: darkred;
 }
 
+.btn {
+    width: 100%;
+}
+
 .Rec {
     animation-name: pulse;
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+}
+
+audio {
+    padding: 15px;
+    width: 100%;
+    margin-top: 30px;
 }
 
 @keyframes pulse {

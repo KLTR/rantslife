@@ -1,3 +1,5 @@
+import { Hashtag } from './../models/hashtag';
+import { User } from './../models/user';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
@@ -25,14 +27,22 @@ export class FirebaseService {
   items: Observable<Item[]>;
   itemDoc: AngularFirestoreDocument<Item>;
 
+  // podcasts
   private podcastCollection: AngularFirestoreCollection<Podcast>;
+  // observable for firestore collection
   private podcasts: Observable<Podcast[]>;
   private podcastDoc: AngularFirestoreDocument<Podcast>;
 
-  currentPodcast: Podcast = null;
+  // user
+  private userCollection: AngularFirestoreCollection<User>
+  private users: Observable<User[]>;
+
+
+  // hastags
+  private hashtagCollection: AngularFirestoreCollection<Hashtag>
+  private hashtags: Observable<Hashtag[]>;
 
   private basePath:string = '/uploads';
-
 
   //! Constructor
 
@@ -46,7 +56,7 @@ export class FirebaseService {
   { 
 
 
-
+// Podcasts
     this.podcastCollection = this.afs.collection('podcasts', ref => ref.orderBy('date', 'desc'));
     this.podcasts = this.podcastCollection.snapshotChanges().map(changes => {
       return changes.map(a => {
@@ -55,9 +65,31 @@ export class FirebaseService {
         return data;
       })
     })
+// Users
+    this.userCollection = this.afs.collection('users');
+    this.users = this.userCollection.snapshotChanges().map(changes => {
+      return changes.map(a => {
+        const data = a.payload.doc.data() as User;
+        data.uid = a.payload.doc.id;
+        console.log(data.uid)
+        return data;
+      })
+    })
+
+    // Hashtags
+    this.hashtagCollection = this.afs.collection('hashtags');
+    this.hashtags = this.hashtagCollection.snapshotChanges().map(changes => {
+      return changes.map(a => {
+        const data = a.payload.doc.data() as Hashtag;
+        return data;
+      })
+    })
+
+    
+  } 
+  //*End Constructor
 
 
-  }
   //! Functions
   public login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
@@ -73,19 +105,19 @@ export class FirebaseService {
 
   // Examples
 
-  addItem(item: Item){
-    this.itemsCollection.add(item);
-  }
+  // addItem(item: Item){
+  //   this.itemsCollection.add(item);
+  // }
 
-  deleteItem(item: Item){
-    this.itemDoc = this.afs.doc(`items/${item.id}`);
-    this.itemDoc.delete();
-  }
+  // deleteItem(item: Item){
+  //   this.itemDoc = this.afs.doc(`items/${item.id}`);
+  //   this.itemDoc.delete();
+  // }
 
-  updateItem(item: Item){
-  this.itemDoc = this.afs.doc(`items/${item.id}`);
-  this.itemDoc.update(item);
-  }
+  // updateItem(item: Item){
+  // this.itemDoc = this.afs.doc(`items/${item.id}`);
+  // this.itemDoc.update(item);
+  // }
 //  !Examples
 
 //* Podcast Collection Managing (Firestore)
@@ -94,20 +126,64 @@ public getPodcastCollection(){
 }
 
 public getPodcasts(){
+  this.podcasts = this.podcastCollection.snapshotChanges().map(changes => {
+    return changes.map(a => {
+      const data = a.payload.doc.data() as Podcast;
+      data.id = a.payload.doc.id;
+      return data;
+    })
+  })
   return this.podcasts;
 }
 public addPodcastToCollection(podcast: Podcast) : Promise<firebase.firestore.DocumentReference>{
   return this.podcastCollection.add(podcast);                      
 }
+public addPodcastToUserCollection(podcast: Podcast, uid) : Promise<firebase.firestore.DocumentReference>{
+  return this.userCollection.doc(uid).collection('user_podcasts').add(podcast);
+}
 
 
+public addHashtags(hashtags){
+  let tagToAdd
+  hashtags.forEach(tag => {
+    console.log(tag);
+    this.hashtagCollection.ref
+    .where("tag", "==",tag.toLowerCase())
+    .get()
+    .then(result => {
+      let tagToAdd = {
+        id: tag.toLowerCase(),
+        tag: tag.toLowerCase(),
+        count: 0
+      }
+      console.log(result.empty);
+      if (result.empty) {
+        console.log(tagToAdd);
+        this.hashtagCollection.add(tagToAdd)
+      } else {
+        let ref = this.hashtagCollection.doc(tagToAdd.id);
+        let count = ref["count"]+1;
+        console.log(count);
+        console.log(ref);
+      }
+    })
+    .catch(error => {
+      console.log("error aayo che", error);
+    });
+  });
+  
+}
 
+
+//  Storage handlers
 //* Files handling (Storage)
  public pushUploadAudio(upload: AudioFile){
+   if(!this.authService.getAuthState){
+     console.log('user is not logged in !');
+     return;
+   }
    let storageRef = firebase.storage().ref();
    let uid = this.authService.getCurrentUser().uid;
-   console.log(this.authService.getCurrentUser().getIdToken);
-   console.log(this.authService.getCurrentUser().getToken);
   //  the audio file will be uploaded to the id generated to the Podcast Document
   let uploadTask = storageRef.child(`user_content`).child(uid).child(upload.podcast_id).child(upload.file.name).put(upload.file);
   console.log(uploadTask);
@@ -133,7 +209,13 @@ public addPodcastToCollection(podcast: Podcast) : Promise<firebase.firestore.Doc
   )
  }
 
+
+
  public pushUploadImage(upload: ImageFile){
+  if(!this.authService.getAuthState){
+    console.log('user is not logged in !');
+    return;
+  }
   let uid = this.authService.getCurrentUser().uid;  
   let storageRef = firebase.storage().ref();
   let uploadTask = storageRef.child(`user_content`).child(uid).child(upload.podcast_id).child(upload.file.name).put(upload.file);

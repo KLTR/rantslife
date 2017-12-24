@@ -57,8 +57,45 @@ app-root {
     margin-bottom: 1rem;
     border: 1px solid transparent;
     border-radius: 0;
-    height: 6rem;
+    height: 2rem;
     /* text-align: center; */
     align-items: center;
     display: flex;
+}
+
+.btn-main {
+    background-color: #54587E;
+    color: #B4B7C1;
+    transition: all 0.25s ease-in;
+}
+
+.btn-main:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.btn-circle {
+    width: 50px;
+    height: 50px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 25px;
+}
+
+.badge-main {
+    background-color: #54587E;
+}
+
+.badge {
+    margin: 1px;
+    color: #b4b7c1;
+    transition: all 0.15s ease-in;
+}
+
+.badge:hover {
+    cursor: pointer;
+    color: white;
 }

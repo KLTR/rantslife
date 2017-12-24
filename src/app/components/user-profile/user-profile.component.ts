@@ -6,10 +6,11 @@ import { AuthService } from '../../services/auth.service'
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-
+  user;
   constructor(public auth: AuthService) { }
 
   ngOnInit() {
+   this.user =  this.auth.getCurrentUser();
   }
 
 }
