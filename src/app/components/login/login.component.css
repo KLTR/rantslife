@@ -62,7 +62,7 @@
     position: relative;
 }
 
-.flex {
+.flex-div {
     display: flex;
     align-items: center;
 }
@@ -80,7 +80,7 @@
 .footer {
     background-color: rgb(15, 114, 94);
     width: 100%;
-    height: 20rem;
+    height: 12rem;
 }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {FirebaseService} from '../../services/firebase.service';
 import {Podcast} from '../../models/podcast';
@@ -8,13 +8,16 @@ import {AudioFile} from '../../models/audio_file';
 import {ImageFile} from '../../models/image_file';
 import * as _ from 'lodash';
 import {AuthService} from '../../services/auth.service';
-
+declare var jquery:any;
+declare var $ :any;
 @Component({
   selector: 'app-record',
   templateUrl: './record.component.html',
   styleUrls: ['./record.component.css']
 })
 export class RecordComponent implements OnInit {
+  @Output() close = new EventEmitter();
+
 
   rForm: FormGroup;
   description:string = '';
@@ -26,6 +29,7 @@ export class RecordComponent implements OnInit {
   titleAlert : string = "This field is required"
   formSubmitted : boolean = false;
   audioFileActive:boolean = true;
+  tabsFlag:string = 'audio';
 
   currentAudioFile:AudioFile = null;
   currentImageFile:ImageFile = null;
@@ -65,8 +69,19 @@ export class RecordComponent implements OnInit {
   }
 
 // Functions
+closeModal(){
+  // $("#myModal").html("");
+  // $("#myModal textarea").val("")
 
+}
 
+toggleTabs(str){
+  this.tabsFlag = str;
+}
+onClose() {
+  console.log('close');
+  this.close.emit(null);
+}
 // Add podcat to podcast collection, userid's collection and add/update hashtags in collection
   addPodcast(podcast) {
     // creating id for podcast. 
@@ -74,11 +89,11 @@ export class RecordComponent implements OnInit {
     
     this.podcast.creator = this.authService.getCurrentUser().displayName;
     this.podcast.user_id = this.authService.getCurrentUser().uid;
-    console.log('user id from podcast is '+ this.podcast.user_id);
     this.podcast.title = podcast.title;
     this.podcast.description = podcast.description;
     this.podcast.date = new Date();
     this.podcast.likes = new Array<User>();
+    this.podcast.likes[0] = this.authService.getCurrentUser();
     this.podcast.comments = new Array<Comment>();
     this.podcast.listeners = new Array<User>();
     this.podcast.hashtags = podcast.tags.split(" ");
@@ -108,11 +123,13 @@ export class RecordComponent implements OnInit {
             // resetting form podcast Object and files
       this.resetFormFields();
       this.resetPodcast();
-      this.resetFiles(); 
+      this.onClose(); 
     },
     (err)=>{
       console.log(err);
       this.clearAll();
+      this.onClose(); 
+
     });
   }
 
@@ -130,8 +147,9 @@ export class RecordComponent implements OnInit {
     this.resetPodcast()    
   this.resetFormFields();
     // Make sure current files are nullified
-   this.resetFiles()
+   this.cancelFiledUpload()
   }
+  
 }
 
   resetPodcast(){
@@ -160,7 +178,7 @@ resetFormFields(){
     }
 }
 
-resetFiles(){
+cancelFiledUpload(){
   if(this.currentAudioFile){
     // sends the url of the files to cancel
   this.firebaseService.cancelFileUpload(this.currentAudioFile.ref).then((res)=>{
@@ -172,6 +190,11 @@ resetFiles(){
     });
   }
   }  
+}
+
+resetFiles(){
+ this.currentAudioFile = null;
+ this.currentImageFile = null;
 }
 
 
@@ -191,14 +214,12 @@ resetFiles(){
   handleDrop(file){
       if(this.audioFileActive){
       this.currentAudioFile = new AudioFile(file)
-      console.log(this.currentAudioFile);
       this.currentAudioFile.podcast_id = this.podcast.id;
       this.firebaseService.pushUploadAudio(this.currentAudioFile);
       }
       else{
         this.currentImageFile = new ImageFile(file)
         this.currentImageFile.podcast_id = this.podcast.id;        
-        console.log(this.currentImageFile);
         this.firebaseService.pushUploadImage(this.currentImageFile);
       }      
     }
@@ -231,13 +252,11 @@ resetFiles(){
     let file: File = event.target.files[0];
     if(this.audioFileActive){
       this.currentAudioFile = new AudioFile(file)
-      console.log(this.currentAudioFile);
       this.currentAudioFile.podcast_id = this.podcast.id;              
       this.firebaseService.pushUploadAudio(this.currentAudioFile);
       }
       else{
         this.currentImageFile = new ImageFile(file)
-        console.log(this.currentImageFile);
         this.currentImageFile.podcast_id = this.podcast.id;                
         this.firebaseService.pushUploadImage(this.currentImageFile);
       } 

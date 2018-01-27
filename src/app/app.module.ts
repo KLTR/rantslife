@@ -39,6 +39,11 @@ import { ContentComponent } from './components/content/content.component';
 import { LoginComponent } from './components/login/login.component';
 import { RtcComponent } from './components/rtc/rtc.component';
 
+import {VgCoreModule} from 'videogular2/core';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgBufferingModule} from 'videogular2/buffering';
+
 const appRoutes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full',canActivate: [AuthGuard]},
   {path:'login', component:LoginComponent},  
@@ -76,6 +81,10 @@ firebase.initializeApp(environment.firebase);
     AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     FlashMessagesModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
     
   ],
   providers: [FirebaseService, AuthService, AuthGuard],

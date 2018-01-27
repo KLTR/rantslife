@@ -14,10 +14,178 @@
 
 <!-- </ng-template> -->
 
-<div *ngIf="user">
+<!-- <div *ngIf="user">
     <h3>Howdy, {{user.displayName}}</h3>
     <img [src]="user?.photoURL">
     <p>UID: {{user?.uid}}</p>
     <p>Favorite Color: {{user?.favoriteColor}}</p>
     <button (click)="auth.signOut()">Logout</button>
+</div> -->
+
+<div class="container be-detail-container">
+    <div class="row">
+        <div class="col-xs-12 col-md-4 left-feild">
+            <div class="be-user-block style-3">
+                <div class="be-user-detail">
+                    <a class="be-ava-user style-2">
+                        <img [src]="user?.photoURL" alt="">
+                    </a>
+                    <a class="be-ava-left btn color-1 size-2 hover-1" style="color: whitesmoke;"><i class="far fa-edit"></i>Edit</a>
+                    <div class="be-ava-right btn btn-share color-4 size-2 hover-7">
+                        <i class="fa fa-share-alt"></i>share
+                        <div class="share-buttons">
+                            <a class="color-1"><i class="fa fa-facebook"></i> 278</a>
+                            <a class="color-2"><i class="fa fa-twitter"></i> 180</a>
+                            <a class="color-3"><i class="fa fa-pinterest-p"></i> 78</a>
+                            <a class="color-4"><i class="fa fa-linkedin"></i> 53</a>
+                        </div>
+                    </div>
+                    <p class="be-use-name">{{user.displayName}}</p>
+                    <!-- <div class="be-user-info">
+                        Barnsley, United Kingdom
+                    </div> -->
+                    <!-- <div class="be-text-tags style-2">
+                        <a>UI/UX</a>,
+                        <a>Web Design</a>,
+                        <a>Art Direction</a>
+                    </div> -->
+                    <div class="be-user-social">
+                        <a class="social-btn color-1"><i class="fab fa-facebook"></i></a>
+                        <a class="social-btn color-2"><i class="fab fa-twitter"></i></a>
+                        <a class="social-btn color-3"><i class="fab fa-google-plus"></i></a>
+                        <a class="social-btn color-4"><i class="fab fa-pinterest-p"></i></a>
+                        <a class="social-btn color-5"><i class="fab fa-instagram"></i></a>
+                        <a class="social-btn color-6"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                    <!-- <a class="be-user-site"><i class="fa fa-link"></i> www.phoenix.cool</a> -->
+                </div>
+                <div class="be-user-statistic">
+                    <div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i>Podcasts Uploaded<span class="stat-counter">{{podcasts?.length}}</span></div>
+                    <!-- <div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i>Podcasts Liked<span class="stat-counter">{{podcasts?.length}}</span></div> -->
+
+                    <!-- <div class="stat-row clearfix"><i class="stat-icon icon-like-b"></i>Appreciations<span class="stat-counter">14335</span></div>
+                    <div class="stat-row clearfix"><i class="stat-icon icon-followers-b"></i>Followers<span class="stat-counter">2208</span></div>
+                    <div class="stat-row clearfix"><i class="stat-icon icon-following-b"></i>Following<span class="stat-counter">0</span></div> -->
+                </div>
+            </div>
+            <div class="be-desc-block">
+                <div class="be-desc-author">
+                    <div class="be-desc-label">About Me</div>
+                    <div class="clearfix"></div>
+                    <div class="be-desc-text">
+                        Nam sit amet massa commodo, tristique metus at, consequat turpis. In vulputate justo at auctor mollis. Aliquam non sagittis tortor. Duis tristique suscipit risus, quis facilisis nisl congue vitae. Nunc varius pellentesque scelerisque. Etiam quis massa
+                        vitae lectus placerat ullamcorper pellentesque vel nisl.
+                    </div>
+                </div>
+                <div class="be-desc-author">
+                    <div class="be-desc-label">My Values</div>
+                    <div class="clearfix"></div>
+                    <div class="be-desc-text">
+                        Sed dignissim scelerisque pretium. Vestibulum vel lacus laoreet nunc fermentum maximus. Proin id sodales sem, at consectetur urna. Proin vestibulum, erat a hendrerit sodales, nulla libero ornare dolor.
+                    </div>
+                </div>
+            </div>
+            <!-- <a class="btn full color-1 size-1 hover-1"><i class="fa fa-plus"></i>add sections</a> -->
+        </div>
+        <div class="col-xs-12 col-md-8">
+            <div class="tab-wrapper style-1">
+                <div class="tab-nav-wrapper">
+                    <div class="nav-tab  clearfix">
+                        <div class="nav-tab-item active">
+                            <span>Podcasts</span>
+                        </div>
+                        <!-- <div class="nav-tab-item ">
+                            <span>Work In Progress</span>
+                        </div>
+                        <div class="nav-tab-item ">
+                            <span>Appreciated</span>
+                        </div>
+                        <div class="nav-tab-item ">
+                            <span>Collections</span>
+                        </div> -->
+                    </div>
+                </div>
+                <div *ngIf="podcasts" class="tabs-content clearfix">
+                    <div class="tab-info active">
+                        <div class="row">
+                            <div *ngFor="let podcast of podcasts" class="col-xs-12 col-sm-6 col-md-4 " style="display: inline-block;">
+                                <div class="be-post">
+                                    <a class="be-img-block">
+
+                                        <div id="ctrl_{{podcast.id}}" class="img-bg-play">
+                                            <!-- <i class="fas fa-play fa-2x"></i> -->
+                                            <audio id="audio_{{podcast.id}}" controls="">
+                                                        <source type="audio/mpeg" [src]="podcast.audio_file_url">
+                                                        <source type="audio/ogg" [src]="podcast.audio_file_url">
+                                                     </audio>
+                                        </div>
+                                        <img [src]="podcast.image_file_url" alt="omg">
+                                    </a>
+                                    <a class="be-post-title">{{podcast.title}}</a>
+                                    <div *ngIf="podcast.hashtags?.length > 0" class="hashtags">
+                                        <span *ngFor="let tag of podcast.hashtags">
+                                            <a class="badge badge-main"*ngIf="tag != '' || tag == null">{{tag}}</a>
+                                        </span>
+                                    </div>
+                                    <div class="author-post">
+                                        <!-- <img src="img/a1.png" alt="" class="ava-author"> -->
+                                        <span>by <a>{{podcast.creator}}</a></span>
+                                    </div>
+                                    <div class="info-block">
+                                        <span (click)="like(podcast)"><i  class="far fas fa-heart"></i> {{podcast.likes?.length}}</span>
+                                        <span><i (click)="comment(podcast)" class="far fa-comment"></i>{{podcast.comments?.length}}</span>
+                                        <span><i class="fas fa-headphones"></i>{{podcast.listeners?.length}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-info">
+                        <div class="row">
+                            <div class="col-ml-12 col-xs-6 col-sm-4">
+                                <div class="be-post">
+                                    <a class="be-img-block">
+                                        <img src alt="omg">
+                                    </a>
+                                    <a class="be-post-title">Racing Queensland</a>
+                                    <span>
+                                        <a  class="be-post-tag">Interaction Design</a>, 
+                                        <a  class="be-post-tag">UI/UX</a>,  
+                                        <a  class="be-post-tag">Web Design</a>
+                                    </span>
+                                    <div class="author-post">
+                                        <img alt="" class="ava-author">
+                                        <span>by <a >Hoang Nguyen</a></span>
+                                    </div>
+                                    <div class="info-block">
+                                        <span><i class="far fa-thumbs-o-up"></i> 360</span>
+                                        <span><i class="far fa-comment"></i> 789</span>
+                                        <span><i class="fas fa-headphones"></i> 20</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-info">
+                        <div class="row">
+                            <div class="col-ml-12 col-xs-6 col-sm-4">
+                                <div class="be-post style-4">
+                                    <a class="be-img-block">
+                                        <img alt="omg">
+                                    </a>
+                                    <a class="be-post-title">Wisdom For My Children, Life Lessons Through</a>
+
+                                    <div class="author-post clearfix">
+                                        <img alt="" class="ava-author">
+                                        <span>by <a >Hoang Nguyen</a></span>
+                                        <span class="like-counter"><i class="fa fa-thumbs-o-up"></i> 405</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

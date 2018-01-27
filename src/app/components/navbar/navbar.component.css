@@ -73,4 +73,5 @@ input::-webkit-input-placeholder {
 
 #nav {
     background-color: #54587E;
+    box-shadow: 1px 1px 5px 5px black;
 }

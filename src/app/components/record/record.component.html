@@ -99,21 +99,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade out" id="record">
+                            <div (click)="toggleTabs('record')" class="tab-pane fade out" id="record">
                                 <div class="box">
                                     <app-live-record></app-live-record>
                                 </div>
                             </div>
                         </div>
-                        <!-- Audio File Upload -->
-
-                        <!-- Image File Upload -->
-
                         <div class="form-group">
                             <!-- <button type="submit" class="btn btn-success btn-lg float-right">Register</button> -->
                         </div>
                         <div class="modal-footer">
-                            <input (click)='clearAll()' type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel" />
+                            <input (click)='closeModal()' type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel" />
                             <!-- <input type="submit" class="btn btn-primary" value="Share Your Rant" [disabled]="!rForm.valid || currentAudioFile?.progress < 100" /> -->
                             <input type="button" class="btn submit-btn" (click)='addPodcast(rForm.value)' data-dismiss='modal' value="Share Your Rant" [disabled]="!rForm.valid || currentAudioFile?.progress < 100" />
                         </div>

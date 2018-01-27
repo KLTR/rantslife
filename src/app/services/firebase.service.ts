@@ -21,7 +21,7 @@ import {AuthService} from '../services/auth.service';
 @Injectable()
 export class FirebaseService {
 
-  //! Variables
+  //* Variables
 
   itemsCollection: AngularFirestoreCollection<Item>;
   items: Observable<Item[]>;
@@ -41,10 +41,10 @@ export class FirebaseService {
   // hastags
   private hashtagCollection: AngularFirestoreCollection<Hashtag>
   private hashtags: Observable<Hashtag[]>;
-
+  private hashtagDoc: AngularFirestoreDocument<Hashtag>;
   private basePath:string = '/uploads';
 
-  //! Constructor
+  //* Constructor
 
   constructor( 
     public afs: AngularFirestore,
@@ -87,10 +87,8 @@ export class FirebaseService {
 
     
   } 
-  //*End Constructor
 
-
-  //! Functions
+  //* Functions
   public login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
@@ -103,7 +101,7 @@ export class FirebaseService {
     startAt(start).endAt(end)).valueChanges();
   }
 
-  // Examples
+  //* Examples
 
   // addItem(item: Item){
   //   this.itemsCollection.add(item);
@@ -118,7 +116,7 @@ export class FirebaseService {
   // this.itemDoc = this.afs.doc(`items/${item.id}`);
   // this.itemDoc.update(item);
   // }
-//  !Examples
+
 
 //* Podcast Collection Managing (Firestore)
 public getPodcastCollection(){
@@ -135,6 +133,27 @@ public getPodcasts(){
   })
   return this.podcasts;
 }
+
+public getUserPodcasts(uid){
+  const podcasts = this.userCollection.doc(uid).collection('user_podcasts').snapshotChanges().map(changes => {
+    return changes.map(a=> {
+      const data = a.payload.doc.data() as Podcast;
+      data.id = a.payload.doc.id;
+      return data;
+     })
+  })
+ return podcasts;
+}
+
+public getHashtags(){
+  this.hashtags = this.hashtagCollection.snapshotChanges().map(changes => {
+    return changes.map(a => {
+      const data = a.payload.doc.data() as Hashtag;
+      return data;
+    })
+  })
+  return this.hashtags;
+}
 public addPodcastToCollection(podcast: Podcast) : Promise<firebase.firestore.DocumentReference>{
   return this.podcastCollection.add(podcast);                      
 }
@@ -142,6 +161,7 @@ public addPodcastToUserCollection(podcast: Podcast, uid) : Promise<firebase.fire
   return this.userCollection.doc(uid).collection('user_podcasts').add(podcast);
 }
 
+//* Hashtags Collection Managing (Firestore)
 
 public addHashtags(hashtags){
   let tagToAdd
@@ -152,30 +172,80 @@ public addHashtags(hashtags){
     .get()
     .then(result => {
       let tagToAdd = {
-        id: tag.toLowerCase(),
         tag: tag.toLowerCase(),
-        count: 0
+        count: 1
       }
-      console.log(result.empty);
       if (result.empty) {
+        // tag is not inside hashtags collections;
         console.log(tagToAdd);
         this.hashtagCollection.add(tagToAdd)
+        return;
       } else {
-        let ref = this.hashtagCollection.doc(tagToAdd.id);
-        let count = ref["count"]+1;
-        console.log(count);
-        console.log(ref);
+        var docRef = this.afs.collection('hashtags').doc(tagToAdd.tag)
+        return this.afs.firestore.runTransaction((transaction) => {
+          return transaction.get(docRef.ref).then((ref)=>{
+            if(ref.exists){
+              var newCount = ref.data().count +1;
+              var tag = ref.data().tag
+              console.log(newCount);
+              transaction.update(ref.ref, { count: newCount, tag: tag})
+            }else{
+              let tag = tagToAdd.tag
+              transaction.set(ref.ref, { count: 1, tag: tag})
+            }
+
+          })
+        })
       }
     })
     .catch(error => {
-      console.log("error aayo che", error);
+      console.log("error --> ", error);
     });
   });
   
 }
 
+public addTags(tags) {
+  for(let i = 0 ; i < tags.length; i++){
+    var docRef = this.afs.collection('hashtags').doc(tags[i])
+    this.afs.firestore.runTransaction((transaction) => {
+      return transaction.get(docRef.ref).then((resDoc) =>{
+        var newCount = resDoc.data().count+1;
+        transaction.update(docRef.ref , { count: newCount});
+      }).then(()=>{
+        console.log('successfull !')
+      }).catch( (err) =>{
+        console.log('transaction failed', err)
+      })
+    })
+  }
+}
 
-//  Storage handlers
+// like/unlike a podcast
+public like(podcast: Podcast){
+  this.podcastDoc = this.afs.doc<Podcast>(`podcasts/${podcast.id}`);
+  this.podcastDoc.set(podcast);
+
+}
+
+public listenedToPodcast(podcast: Podcast){
+  this.podcastDoc = this.afs.doc<Podcast>(`podcasts/${podcast.id}`)
+  this.podcastDoc.set(podcast);
+}
+
+//* User collection for liked podcasts. (Favourites)
+public addLikedPodcastToUserCollection(podcast: Podcast){
+  return this.userCollection.doc(podcast.user_id).collection('liked_podcasts').doc(podcast.id).set(podcast);
+}
+public removeLikedPodcastFromUserCollection(podcast: Podcast){
+  this.afs.doc<Podcast>(`podcasts/${podcast.id}`);
+   this.podcastDoc = this.afs.doc<Podcast>(`users/${podcast.user_id}/liked_podcasts/${podcast.id}`)
+   this.podcastDoc.delete().then((res)=>{
+    console.log(res);
+   });
+}
+
+
 //* Files handling (Storage)
  public pushUploadAudio(upload: AudioFile){
    if(!this.authService.getAuthState){
@@ -186,7 +256,6 @@ public addHashtags(hashtags){
    let uid = this.authService.getCurrentUser().uid;
   //  the audio file will be uploaded to the id generated to the Podcast Document
   let uploadTask = storageRef.child(`user_content`).child(uid).child(upload.podcast_id).child(upload.file.name).put(upload.file);
-  console.log(uploadTask);
   uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
     (snapshot) =>{
       // upload in progress
@@ -235,7 +304,6 @@ public addHashtags(hashtags){
     //  upload.name is the name ref in firebase storage
      upload.name = uploadTask.snapshot.ref.name;
      upload.ref = uploadTask.snapshot.ref.fullPath;
-     console.log(upload.ref);
      this.flashMessagesService.show('Image was successfuly uploaded!',  { cssClass: 'alert alert-success', timeout: 3000 })     
    })
 }
@@ -243,7 +311,6 @@ public addHashtags(hashtags){
 public cancelFileUpload(url) : Promise<any>{
   let uid = this.authService.getCurrentUser().uid;    
   let storageRef = firebase.storage().ref();
-  console.log()  
   let uploadTask = storageRef.child(`${url}`).delete()
   return uploadTask;
 }

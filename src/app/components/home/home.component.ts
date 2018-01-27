@@ -9,7 +9,7 @@ import {FirebaseService} from '../../services/firebase.service';
 })
 export class HomeComponent implements OnInit {
   @Output() podcasts ;
-  
+  showRecord: boolean = false;
   constructor(private auth: AuthService,
   ){}
 

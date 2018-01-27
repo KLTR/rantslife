@@ -1,0 +1,24 @@
+.be-user-social a:hover {
+    transform: scale(1.1);
+    color: white;
+    cursor: pointer;
+}
+
+.be-user-social a {
+    transition: all 0.2s ease-in-out;
+    color: white;
+}
+
+.be-ava-left .btn .color-1 .size-2 {
+    color: white;
+}
+
+a:not([href]):not([tabindex]) {}
+
+.author-post span a {
+    color: black;
+}
+
+.hashtags .badge {
+    color: #b4b7c1;
+}

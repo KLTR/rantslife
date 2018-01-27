@@ -6,7 +6,7 @@
         <audio #audio class="audio"></audio>
     </div>
     <div class="col-sm-4">
-        <button class="btn btn-circle btn-main" (click)="startRecording()"><i class="fas fa-microphone"></i></button>
+        <button [ngClass]="{'Rec': isRecording}" class="btn btn-circle btn-main" (click)="startRecording()"><i class="fas fa-microphone"></i></button>
     </div>
     <div class="col-sm-4">
         <button class="btn btn-circle btn-main" (click)="stopRecording()"><i class="fas fa-stop-circle"></i></button>
@@ -15,7 +15,6 @@
         <button class="btn btn-circle btn-main" (click)="download()"><i class="fas fa-download"></i></button>
     </div>
 </div>
-
 
 
 
